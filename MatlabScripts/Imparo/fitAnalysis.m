@@ -61,4 +61,31 @@ plot(t, v_fit, 'r-'); hold on; grid on  % Fit lineare
 ylabel("Velocity (m/s)")    % Label asse y
 xlabel("Time (s)")  % Label asse x
 
+% Per definire un array posso sfruttare una sintassi molto comoda e
+% sintetica. Per esempio: x = 0:0.01:10 consente di creare un array con
+% valori che vanno da 0 a 10 e che presentano un incremento pari a 0.01
 
+noise = v - v_fit;  % Calcolo il rumore presente sui dati
+fprintf('\n\n')
+fprintf("Il rumore medio presente sui dati è: %f\n", mean(noise))   % Valore medio
+fprintf("La deviazione standard risulta essere: %f\n", std(noise))  % Deviazione standard
+
+% Creo un istogramma che mi consente di andare ad osservare come siano
+% distribuiti gli scarti rispetto al valor medio
+figure(5)
+histogram(noise, 100); hold on; % Devo definire quale sia il numero di bins e fornire in input dei valori da plottare
+xlabel('Noise (m/s)')
+ylabel('Occurence')
+title('Noise distribution function')
+
+% Posso anche effettuare un plot che abbia lo stesso andamento
+% dell'istogramma che stiamo prendendo in considerazione. Per fare questo
+% dobbiamo comunque determinare quante volte un certo valore di scarto sia
+% presente rispetto al valor medio che abbiamo individuato con le
+% regressione lineare y = mx + q
+[hvaly hvalx] = hist(noise,100);
+figure(6)
+plot(hvalx, hvaly, 'b.-')
+xlabel("Noise (m/s)")
+ylabel("Occurrence")
+title('Noise distribution function')
