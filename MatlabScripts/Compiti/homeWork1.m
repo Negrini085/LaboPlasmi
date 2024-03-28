@@ -20,24 +20,26 @@ t = filescan {1,1}; v = filescan {1,2};
 figure(1)
 plot(t, v, 'b-'); hold on; grid on;
 xlabel('Tempo (s)')
-ylabel('Corrente (A)')
+ylabel('Potenziale (V)')
 title('Dati compito 1')
 
 % PUNTO 3 ---> Faccio smoothing
 figure(2)
 for i = 1:5
-    vs(:,i) = movmean(v, 1+100*i);
+    vs(:,i) = smoothdata(v, 'movmean', 1+100*i);
 end
 % Per vedere quale sia il numero migliore di punti per effettuare lo
 % smoothing faccio un grafico in modo tale da vedere le varie curve al
 % variare del numero di punti presi in considerazione
+plot(t, v, 'k-'); hold on; grid on;
 plot(t, vs(:, 1), 'g-'); hold on; grid on;
 plot(t, vs(:, 2), 'r-'); hold on; grid on;
 plot(t, vs(:, 3), 'b-'); hold on; grid on;
 plot(t, vs(:, 4), 'y-'); hold on; grid on;
-plot(t, vs(:, 5), 'k-'); hold on; grid on;
+plot(t, vs(:, 5), '-'); hold on; grid on;
+legend('raw', '100', '200', '300', '400', '500')
 xlabel('Tempo (s)')
-ylabel('Corrente (A)')
+ylabel('Potenziale (V)')
 title('Confronto fra smoothing')
 % Decido a livello puramente visivo che il migliore è lo smoothing che
 % prende in considerazione 201 dati alla volta. L'intervallo è quindi
@@ -53,7 +55,7 @@ figure(3);
 scarto = v(201:end) - vs(201:end, 2);
 plot(t(201:end), scarto, 'b-'); hold on; grid on;
 xlabel('Tempo (s)')
-ylabel('Corrente (A)')
+ylabel('Potenziale (V)')
 title('Studio dello scarto')
 
 % L'errore che compio è compreso fra i 0.05 e 0.01: non è presente alcuna
@@ -77,7 +79,7 @@ figure(4);
 plot(t(200000:end), appo, 'b-'); hold on; grid on;
 plot(t(200000:end), smooth_appo, 'k-'); hold on; grid on;
 xlabel('Tempo (s)')
-ylabel('Corrente (A)')
+ylabel('Potenziale (V)')
 title('Coda del grafico: raw data vs smoothed')
 
 % Notiamo dal grafico che la sezione presa riguarda una parte del grafico
@@ -87,7 +89,7 @@ title('Coda del grafico: raw data vs smoothed')
 figure(5)
 scarto = appo - smooth_appo;
 histogram(scarto, 100);
-xlabel('Scarto (A)');
+xlabel('Scarto (V)');
 ylabel('Occorrenza');
 
 
@@ -96,8 +98,8 @@ ylabel('Occorrenza');
 figure(6)
 semilogy(t, abs(v), 'k-'); hold on; grid on;
 xlabel('Tempo (s)')
-ylabel('log(i(t)')
-title('Segnale in corrente: scala semilogaritmica')
+ylabel('log(V(t))')
+title('Segnale in potenziale: scala semilogaritmica')
 
 % La parte di scarica in un grafico in scala semilogaritmica è una retta,
 % la cui pendenza è l'inverso del tempo caratteristico del circuito
