@@ -26,7 +26,7 @@ title('Dati compito 1')
 % PUNTO 3 ---> Faccio smoothing
 figure(2)
 for i = 1:5
-    vs(:,i) = movmean(v, 1 + 100*i);
+    vs(:,i) = movmean(v, 1+100*i);
 end
 % Per vedere quale sia il numero migliore di punti per effettuare lo
 % smoothing faccio un grafico in modo tale da vedere le varie curve al
