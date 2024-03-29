@@ -162,7 +162,7 @@ end
 rum_agg = mean(M1(242, 125:270));
 for i = 1 : row1
     for j = 1 : col1
-        M1(i, j) = M1(i, j) - rum_agg;
+        M1(i, j) = M(i, j) - rum_agg;
         if M1(i, j) < 0
             M1(i, j) = 0;
         end
