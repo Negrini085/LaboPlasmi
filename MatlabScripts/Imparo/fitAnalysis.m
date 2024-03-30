@@ -48,7 +48,7 @@ xlabel("Time (s)")  % Label asse x
 
 figure(4)
 % Faccio un fit lineare di quanto sto studiando
-coeff = polyfit(t, v, 1)    % Estraggo i coefficienti dal fit: posso specificare il grado del polinomio
+coeff = polyfit(t, v, 1);    % Estraggo i coefficienti dal fit: posso specificare il grado del polinomio
 fprintf('\n\n') % Per printare a display posso usare due funzioni: disp() e fprintf() per avere una formattazione dell'output 
 disp("Effettuo un fit lineare: y = mx +q")
 fprintf('\n')

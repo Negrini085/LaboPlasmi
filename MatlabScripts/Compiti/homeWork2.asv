@@ -98,9 +98,7 @@ for m = 1:(length(v_smooth(200000:end))-1)
 end
 [max_V ind_max] = max(v_smooth); 
 
-fprintf('\n')
-fprintf('Il potenziale massimo risulta essere pari a: %f\n', max_V)
-fprintf('Il potenziale residuo risulta essere pari a: %f\n', res_V)
+fr
 
 % Effettuo i due fit per aver una stima sull'entità della capacità presente
 % nel circuito RC necessario per l'analisi del segnale in uscita
