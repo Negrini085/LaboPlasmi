@@ -89,3 +89,18 @@ plot(hvalx, hvaly, 'b.-')
 xlabel("Noise (m/s)")
 ylabel("Occurrence")
 title('Noise distribution function')
+
+
+% Mi concentro ora sul come fare fit esponenziali, dato che saranno
+% necessari per lavorare con scariche di condensatori, caratterizzate da un
+% andamento di quel genere
+x=[1,2,4,6,8]';
+y=[100,140,160,170,175].';
+
+g = fittype("a-b*exp(-c*x)", dependent="y",independent="x", coefficients=["a" "b" "c"]);
+f0 = fit(x,y,g,'StartPoint',[[ones(size(x)), -exp(-x)]\y; 1]);
+
+xx = linspace(1,8,50);
+figure(7)
+plot(x,y,'o',xx,f0(xx),'r-'); hold on; grid on;
+xlabel('Ascisse'); ylabel('Ordinate'); title('Prova fit esponenziale');
