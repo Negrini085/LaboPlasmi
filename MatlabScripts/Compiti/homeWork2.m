@@ -9,7 +9,7 @@ clc
 % PUNTO 1 ---> Lavoro con i dati in cazdata, faccio un fit lineare e studio
 % il rumore presente. Provo ad effettuare un fit con il comando fit
 data = load('cazdata.txt'); t = data(:, 1); v = data(:, 2);
-coeff = polyfit(t, v, 1); fit =  polyval(coeff, t); scarto = v - fit;
+coeff = polyfit(t, v, 1); vfit =  polyval(coeff, t); scarto = v - vfit;
 
 fprintf('Il coefficiente angolare del fit effettuato è: %f\n', coeff(1))
 fprintf("L'intercetta della retta che meglio fitta i dati è: %f\n", coeff(2))
@@ -19,7 +19,7 @@ fprintf("L'intercetta della retta che meglio fitta i dati è: %f\n", coeff(2))
 figure(1)
 subplot(1, 2, 1)
 plot(t, v, 'g-'); hold on; grid on;
-plot(t, fit, 'r-'); hold on; grid on;
+plot(t, vfit, 'r-'); hold on; grid on;
 xlabel('Tempo (s)')
 ylabel('Velocità (m/s)')
 title('Raw data & Fit')
@@ -102,9 +102,51 @@ fprintf('\n')
 fprintf('Il potenziale massimo risulta essere pari a: %f\n', max_V)
 fprintf('Il potenziale residuo risulta essere pari a: %f\n', res_V)
 
+
 % Effettuo i due fit per aver una stima sull'entità della capacità presente
 % nel circuito RC necessario per l'analisi del segnale in uscita
+t_fit = t(ind_max:55000); v_fit = v(ind_max:55000);
+% Istruzioni per effettuare il fit esponenziale
+myfit = fit(t_fit, v_fit, 'exp1', 'Start', [-2.5, 200]); myfit_coeff = coeffvalues(myfit);
+exp_fit = myfit_coeff(1) * exp(myfit_coeff(2) * t_fit);
 figure(3)
 subplot(2, 1, 1)
-%plot(t(,)
+plot(t_fit, v_fit, 'g-'); hold on; grid on;
+plot(t_fit, exp_fit, 'r-', 'LineWidth', 2); hold on; grid on;
+legend('Raw', 'Exponential fit'); xlabel('Tempo (s)'); ylabel('V'); title('Stima capacità: fit esponenziale')
+fprintf('\n')
+fprintf("La capacità stimata con regressione lineare in scala semi-logaritmica è pari a: %e\n", -1.0/(myfit_coeff(2) * res))
+
+
+v_log = log10(abs(v(ind_max:55000)));
+fit = polyfit(t(ind_max:55000), v_log, 1);
 subplot(2, 1, 2)
+plot(t(ind_max:55000), v_log, 'g-'); hold on; grid on;
+plot(t(ind_max:55000), polyval(fit, t(ind_max:55000)), 'r-', 'LineWidth', 2); hold on; grid on;
+legend('Raw', 'Linear fit'); xlabel('Tempo (s)'); ylabel('log(V)'); title('Stima capacità: regressione lineare')
+fprintf("La capacità stimata con regressione lineare in scala semi-logaritmica è pari a: %e\n", - 1.0/(res * fit(1)))
+
+% Fornisco come stima della capacità la media dei risultati ottenuti con le
+% due metodologie di fit
+cap_media = - 1.0/(2 * res) * (1/myfit_coeff(2) + 1/fit(1));
+
+% Ottengo la stima della carica presente secondo tre differenti metodologie
+% che consentono di ottenere dei valori più o meno raffinati in dipendenza
+% delle precauzioni attuate.
+
+% METODO 1 ---> Prodotto fra la capità e la differenza di potenziale
+fprintf('\n')
+fprintf("La carica totale del plasma ottenuta considerando V_max è pari a: %e\n", - cap_media*max_V);
+
+% METODO 2 ---> Tengo conto della presenza di una differenza di potenziale
+%               residua che equivale ad un solo parziale svuotamento della
+%               trappola di Penning
+fprintf("La carica totale del plasma ottenuta ottenuta correggendo per V_res è pari a: %e\n", -cap_media * (max_V - res_V));
+
+% METODO 3 ---> Faccio l'integrale della corrente nel tempo per ottenere la
+%               carica totale
+q_tot = 0;
+for i = 1:length(corr)
+    q_tot = q_tot + corr(i) * t(i);
+end
+fprintf("La carica totale del plasma ottenuta integrando il segnale in corrente è pari a: %e\n", -cap_media * (max_V - res_V));
