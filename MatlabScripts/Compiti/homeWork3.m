@@ -171,4 +171,4 @@ end
 
 figure(6)
 colormap('jet'); surface(X, Y, M1, 'FaceAlpha', 1, 'FaceColor','flat', 'LineStyle','none')
-title('Immagine analizzata'); axis([-col1/2+9 col1/2+9 -row1/2+14 row1/2+14]); daspect([1 1 0.25]); colorbar; xlabel("Colonne"); ylabel("Righe");
+title('Immagine analizzata'); axis([-col1/2+9 col1/2+9 -row1/2+14 row1/2+14]); daspect([1 1 4]); colorbar; xlabel("Colonne"); ylabel("Righe");

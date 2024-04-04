@@ -105,7 +105,7 @@ fprintf('Il potenziale residuo risulta essere pari a: %f\n', res_V)
 
 % Effettuo i due fit per aver una stima sull'entità della capacità presente
 % nel circuito RC necessario per l'analisi del segnale in uscita
-t_fit = t(ind_max:55000); v_fit = v(ind_max:55000);
+t_fit = t(ind_max:40000); v_fit = v(ind_max:40000);
 % Istruzioni per effettuare il fit esponenziale
 myfit = fit(t_fit, v_fit, 'exp1', 'Start', [-2.5, 200]); myfit_coeff = coeffvalues(myfit);
 exp_fit = myfit_coeff(1) * exp(myfit_coeff(2) * t_fit);
@@ -115,14 +115,14 @@ plot(t_fit, v_fit, 'g-'); hold on; grid on;
 plot(t_fit, exp_fit, 'r-', 'LineWidth', 2); hold on; grid on;
 legend('Raw', 'Exponential fit'); xlabel('Tempo (s)'); ylabel('V'); title('Stima capacità: fit esponenziale')
 fprintf('\n')
-fprintf("La capacità stimata con regressione lineare in scala semi-logaritmica è pari a: %e\n", -1.0/(myfit_coeff(2) * res))
+fprintf("La capacità stimata con fit esponenziale è pari a: %e\n", -1.0/(myfit_coeff(2) * res))
 
 
-v_log = log10(abs(v(ind_max:55000)));
-fit = polyfit(t(ind_max:55000), v_log, 1);
+v_log = log(abs(v_smooth(ind_max:40000)));
+fit = polyfit(t(ind_max:40000), v_log, 1);
 subplot(2, 1, 2)
-plot(t(ind_max:55000), v_log, 'g-'); hold on; grid on;
-plot(t(ind_max:55000), polyval(fit, t(ind_max:55000)), 'r-', 'LineWidth', 2); hold on; grid on;
+plot(t(ind_max:40000), v_log, 'g-'); hold on; grid on;
+plot(t(ind_max:40000), polyval(fit, t(ind_max:40000)), 'r-', 'LineWidth', 2); hold on; grid on;
 legend('Raw', 'Linear fit'); xlabel('Tempo (s)'); ylabel('log(V)'); title('Stima capacità: regressione lineare')
 fprintf("La capacità stimata con regressione lineare in scala semi-logaritmica è pari a: %e\n", - 1.0/(res * fit(1)))
 
@@ -138,15 +138,15 @@ cap_media = - 1.0/(2 * res) * (1/myfit_coeff(2) + 1/fit(1));
 fprintf('\n')
 fprintf("La carica totale del plasma ottenuta considerando V_max è pari a: %e\n", - cap_media*max_V);
 
+% METODO 2 ---> Faccio l'integrale della corrente nel tempo per ottenere la
+%               carica totale
+q_tot = 0; delta_t = t(23) - t(22);
+for i = 1:length(corr)/3
+    q_tot = q_tot + corr(i) * delta_t;
+end
+fprintf("La carica totale del plasma ottenuta integrando il segnale in corrente è pari a: %e\n", -q_tot);
+
 % METODO 2 ---> Tengo conto della presenza di una differenza di potenziale
 %               residua che equivale ad un solo parziale svuotamento della
 %               trappola di Penning
-fprintf("La carica totale del plasma ottenuta ottenuta correggendo per V_res è pari a: %e\n", -cap_media * (max_V - res_V));
-
-% METODO 3 ---> Faccio l'integrale della corrente nel tempo per ottenere la
-%               carica totale
-q_tot = 0;
-for i = 1:length(corr)
-    q_tot = q_tot + corr(i) * t(i);
-end
-fprintf("La carica totale del plasma ottenuta integrando il segnale in corrente è pari a: %e\n", -cap_media * (max_V - res_V));
+fprintf("La carica totale del plasma ottenuta integrando la corrente e correggendo per V_res è pari a: %e\n", - q_tot - cap_media * res_V);
