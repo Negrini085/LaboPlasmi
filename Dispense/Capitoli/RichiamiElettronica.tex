@@ -94,12 +94,12 @@ Il circuito RC è un circuito del primo ordine, ossia è caratterizzato da un'eq
     \label{figure: CircuitoRC}
 \end{figure}
 Gli elementi circuitali presenti sono tre:
-\begin{list}{\textbf{-}}{\setlength{\itemsep}{0cm}}
+\begin{itemize}
     \item un interruttore ideale $S$ che si comporta come un circuito aperto quando è spento e come un cortocircuito quando
     è acceso
     \item una resistenza $R$
     \item un condensatore $C$
-\end{list}
+\end{itemize}
 Quando l'interruttore è acceso si assiste ad una carica del condensatore: la differenza di potenziale $v(t)$ è pari a quella
 dovuta al generatore di tensione $V_0$. Mediante le semplici relazioni \eqref{equation: OhmLaw} e \eqref{equation: capacità}
 introdotte in precedenza è possibile ricavare i valori di corrente nel resistore e di carica immagazzinata nel condensatore.
@@ -254,18 +254,168 @@ ad un impulso (risposta impulsiva).
 \subsubsection{Diagrammi di Bode}
 
 Per rappresentare graficamente $H\left(f\right)$ si utilizzano i \textbf{diagrammi di Bode}. Tali grafici sono di due tipi:
-\begin{list}{\textbf{-}}{\setlength{\itemsep}{0cm}}
+\begin{itemize}
     \item per le \textbf{ampiezze}, dove in ascissa si riporta la frequenza $f$ in scala logaritmica, mentre in ordinata il
           modulo del guadagno in decibel.
     \item per la \textbf{fase}, che è analogo al precedente per quanto riguarda le scisse, mentre in ordinata riporta lo 
           sfasamento.
-\end{list}
+\end{itemize}
 
 \subsection{Circuito RC passa-basso}
 
+Un filtro passa-basso è un sistema che permette il passaggio di frequenze al di sotto di una data soglia, detta frequenza
+di taglio, bloccando le alte frequenze. Un esempio di circuito passa-basso passivo è il circuito RC presente in Figura
+\ref{figure: RC_PassaBasso}, dove il segnale di output $v_{out}$ è preso fra il resistore ed il condensatore. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{Immagini/RC_PassaBasso.png}
+    \caption{Rappresentazione schematica di un circuito RC passa-basso.}
+    \label{figure: RC_PassaBasso}
+\end{figure}
+Nel dominio delle frequenze è possibile ricavare la corrente passante nella maglia come
+\begin{equation}
+    I\,=\,\frac{V_{in}}{Z_R\,+\,Z_C}\,=\,\frac{V_{in} \cdot j2\pi fC}{1\,+\,j2\pi fRC},
+    \label{equation: corrente_RC_PB}
+\end{equation}
+lavorando quindi con l'impedenza totale del circuito, data in questo caso dalla somma di quelle dei due elementi circuitali.
+La tensione in uscita è pari alla differenza di potenziale ai capi del condensatore, che è nuovamente possibile ottenere
+ragionando in termini di impedenza
+\begin{equation}
+    V_{out}\,=\,Z_CI\,=\,\frac{V_{in}}{1\,+\,j2\pi fRC}.
+    \label{equation: Vout_RC_PB}
+\end{equation}
+Abbiamo ora tutti gli ingredienti per procedere con il calcolo della risposta in frequenza
+\begin{equation}
+    H\left(f\right)\,=\,\frac{V_{out}}{V_{in}}\,=\,\frac{1}{1\,+\,j2\pi fRC},
+    \label{equation: Risposta_RC_PB}
+\end{equation}
+da cui con semplici passaggi algebrici possiamo determinare i diagrammi di Bode.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{Immagini/DiagrammiBodePassaBasso.png}
     \caption{Diagrammi di Bode del circuito $RC$ passa-basso.}
-    \label{figure: Impedenza}
+    \label{figure: DiagrammiBodePassaBasso}
 \end{figure}
+
+\subsection{Circuito RC passa-alto}
+
+L'RC passa alto (vedi Figura \ref{figure: RC_PassaAlto}) è un esempio di filtro passa-alto, ossia è un circuito elettrico che
+permette solo il passaggio di frequenze al di sopra di un dato valore detto frequenza di taglio.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{Immagini/RC_PassaAlto.png}
+    \caption{Rappresentazione schematica di un circuito RC passa-alto.}
+    \label{figure: RC_PassaAlto}
+\end{figure}
+Il ragionamento che porta alla determinazione della risposta in frequenza è analogo a quello fatto nella sezione precedente.
+Partendo dalla corrente I nella maglia, data anche in questo caso dalla relazione \eqref{equation: corrente_RC_PB} è possibile
+ricavare il segnale in uscita come
+\begin{equation}
+    V_{out}\,=\,RI\,=\,\frac{V_{in} \cdot j2\pi fRC}{1\,+\,j2\pi fRC},
+    \label{equation: Vout_RC_PA}
+\end{equation}
+con conseguente risposta in frequenza pari a
+\begin{equation}
+    H\left(f\right)\,=\,\frac{V_{out}}{V_{in}}\,=\,\frac{j2\pi fRC}{1\,+\,j2\pi fRC}.
+    \label{equation: Risposta_RC_PA}
+\end{equation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Immagini/DiagrammiBodePassaAlto.png}
+    \caption{Diagrammi di Bode del circuito $RC$ passa-alto.}
+    \label{figure: DiagrammiBodePassaAlto}
+\end{figure}
+
+\section{L'amplificatore operazionale}
+
+I generatori di tensione possono essere di due tipologie:
+\begin{itemize}
+    \item indipendenti, ossia generano grandezze elettriche indipendentemente da qualsiasi altra grandezza presente nel
+    circuito.
+    \item dipendenti, ossia la grandezza elettrica generata (tensione o corrente) ha un valore che è funzione di un'altra 
+    grandezza elettrica presente nel circuito.
+\end{itemize}
+L'amplificatore operazionale (detto anche \textbf{OpAmp}) è un generatore di tensione controllato in tensione che 
+amplifica la differenza di tensione tra i due segnali di ingresso $V^+$ e $V^-$: con '+' viene indicato l'ingresso
+\textit{'non invertente'}, mentre con '-' l'ingresso \textit{'invertente'}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Immagini/OpAmp.png}
+    \caption{Rappresentazione schematica dell'amplificatore operazionale.}
+    \label{figure: OpAmp}
+\end{figure}
+Il guadagno di tensione dell'OpAmp è infinito, ossia
+\begin{equation}
+    V_{out}\,=\,EV_d\,=\,E\left(V^+\,-\,V^-\right)\qquad \text{con} \qquad E \rightarrow \infty.
+    \label{equation: Out_OpAmp}
+\end{equation}
+Solitamente l'amplificatore viene utilizzato in \textit{configurazione retroazionata}: il segnale in uscita è riportato all'
+ingresso mediante una rete di retroazione costituita da elementi passivi come per esempio resistori. Sono possibili due tipologie
+di retroazione:
+\begin{itemize}
+    \item positiva, con segnale d'uscita riportato all'ingresso non invertente.
+    \item negativa, con segnale d'uscita riportato all'ingresso invertente.
+\end{itemize}
+I circuiti retroazionati hanno un comportamento simile a quello di una pallina appoggiata ad una superficie curva: possono
+essere stabili oppure instabili. 
+
+\subsection{Amplificatore invertente}
+
+Il circuito che stiamo prendendo in considerazione presenta un solo amplificatore operazionale ideale: la rete di retroazione
+riporta il segnale all'ingresso invertente (ossia identificato con  il segno meno sullo schema dell' OpAmp).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Immagini/AmplificatoreInvertente.png}
+    \caption{Rappresentazione schematica dell'amplificatore invertente.}
+    \label{figure: OpAmp}
+\end{figure}
+Il circuito preso in analisi può essere descritto mediante il seguente sistema di equazioni:
+\begin{equation}
+    \begin{cases}
+        V_{in}\,-\,V^{-}\,=\,R_1I_1 \\
+        V^-\,-\,V_{out}\,=\,R_2I_2  \\
+        I_1\,=\,I_2 \\
+        V_{out}\,=\,E\left(V^+\,-\,V^-\right)\,=\,-EV^-
+    \end{cases}
+    \label{equation: sistema_AmpInv}
+\end{equation}
+Dato che il guadagno $E$ dell'amplificatore operazionale ideale è infinito, l'ultima equazione è risolvibile solamente se
+assume la forma indeterminata $\infty \cdot 0$: in tal caso il prodotto può assumere un valore finito. Sfruttando ora 
+l'uguaglianza fra le due correnti è possibile verificare come
+\begin{equation}
+    V_{out}\,=\,-\frac{R_2}{R_1}V_{in},
+    \label{equation: Vout_AmpInv}
+\end{equation}
+evidenziando come in questo circuito il guadagno dipenda solamente dal rapporto fra le due resistenze: la presenza del meno
+giustifica la qualifica di \textit{invertente}.
+
+\subsection{Amplificatore non invertente}
+
+Un amplificatore che produce in uscita un segnale amplificato, avente una fase simile a quella dell'ingresso applicato, è 
+detto amplificatore non invertente. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Immagini/AmplificatoreNonInvertente.png}
+    \caption{Rappresentazione schematica dell'amplificatore non invertente.}
+    \label{figure: OpNonAmp}
+\end{figure}
+La rete di retroazione è identica al caso precedente: dato che la retroazione è negativa
+possiamo nuovamente applicare il principio di terra virtuale, ossia:
+\begin{equation}
+    \begin{cases}
+        V^-\,=\,V^+\,=\,V_{in}  \\
+        I^-\,=\,I^+\,=\,0
+    \end{cases}
+    \label{equation: TerraVirtuale}
+\end{equation}
+Andando nuovamente ad uguagliare le correnti passanti nelle due resistenze ricaviamo che
+\begin{equation}
+    -\frac{V_{in}}{R_1}\,=\,\frac{V_{in}\,-\,V_{out}}{R_2},
+    \label{equation: equal_current}
+\end{equation}
+da cui banalmente segue che
+\begin{equation}
+    V_{out}\,=\,\left(1\,+\,\frac{R_2}{R_1}\right)
+    \label{equation: Vout_signal}
+\end{equation}
+
