@@ -8,7 +8,7 @@ clc
 
 % PUNTO 1 ---> Visualizza le tre immagini 'plasma.tiff', 'dark.tiff' e
 % 'ring.tiff'
-
+ 
 % IMMAGINE PLASMA
 figure(1)
 M1 = imread('plasma.tiff'); M1 = double(M1); [row1 col1] = size(M1); 
