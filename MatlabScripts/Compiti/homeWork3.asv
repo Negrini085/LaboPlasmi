@@ -164,36 +164,29 @@ end
 % pareti della trappola
 figure(6);
 x = linspace(-col1/2 + 8, col1/2 + 8, 688);
+size(x)
+size(M1(242, :))
 plot(x, M1(242, :), 'b-', 'LineWidth', 2); hold on; grid on;
 xlabel('Posizione'); ylabel('Intensità'); title('Profilo di densità');
 
 % Noto che oltre gli 80 pixel posso imputare il segnale come legato a fonti
 % di rumore: per questo motivo voglio fare una media per perfezionare
 % ulteriormente l'immagine di plasma che abbiamo prodotto.
-conta = 0; rum_agg = 0;
 for i = 1 : row1
     for j = 1 : col1
         if sqrt((i-row1/2+14)^2 + (j-col1/2+9)^2) <= 215
             if sqrt((i-row1/2+14)^2 + (j-col1/2+9)^2) >= 80
-                conta = conta + 1;
-                rum_agg = rum_agg * (conta - 1)/conta + M1(i, j)/conta; 
+                rum_agg = rum_agg
             end
         end
     end
 end
-
-% Sottraggo il rumore medio nella regione in cui ha effettivamente senso
-% effettuare la sottrazione e ottengo il profilo finale: pongo a zero le
-% entrate che dovrebbero essere negative
+r_min = 80 * lungh_pixel;
 for i = 1 : row1
     for j = 1 : col1
-        if sqrt((i-row1/2+14)^2 + (j-col1/2+9)^2) <= 215
-            if sqrt((i-row1/2+14)^2 + (j-col1/2+9)^2) >= 80
-                M1(i, j) = M1(i, j) - rum_agg;
-                if M1(i, j) < 0
-                    M1(i, j) = 0;
-                end
-            end
+        M1(i, j) = M1(i, j) - rum_agg;
+        if M1(i, j) < 0
+            M1(i, j) = 0;
         end
     end
 end
