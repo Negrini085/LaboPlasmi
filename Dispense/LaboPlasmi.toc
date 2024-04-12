@@ -1,0 +1,24 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{2}{}%
+\contentsline {section}{\numberline {1.1}Struttura della dispensa}{2}{}%
+\contentsline {chapter}{\numberline {2}Modelli teorici}{3}{}%
+\contentsline {chapter}{\numberline {3}Richiami di Elettronica}{4}{}%
+\contentsline {section}{\numberline {3.1}Introduzione}{4}{}%
+\contentsline {subsection}{\numberline {3.1.1}Circuito RC}{6}{}%
+\contentsline {section}{\numberline {3.2}Dominio delle frequenze}{7}{}%
+\contentsline {subsection}{\numberline {3.2.1}Trasformata di Fourier}{7}{}%
+\contentsline {subsection}{\numberline {3.2.2}Impedenza}{8}{}%
+\contentsline {subsection}{\numberline {3.2.3}Risposta in frequenza}{9}{}%
+\contentsline {subsubsection}{Diagrammi di Bode}{9}{}%
+\contentsline {subsection}{\numberline {3.2.4}Circuito RC passa-basso}{9}{}%
+\contentsline {subsection}{\numberline {3.2.5}Circuito RC passa-alto}{11}{}%
+\contentsline {section}{\numberline {3.3}L'amplificatore operazionale}{12}{}%
+\contentsline {subsection}{\numberline {3.3.1}Amplificatore invertente}{12}{}%
+\contentsline {subsection}{\numberline {3.3.2}Amplificatore non invertente}{13}{}%
+\contentsline {chapter}{\numberline {4}Procedure di Laboratorio}{15}{}%
+\contentsline {section}{\numberline {4.1}Utilizzo della strumentazione}{15}{}%
+\contentsline {subsection}{\numberline {4.1.1}Temporizzazione}{15}{}%
+\contentsline {subsection}{\numberline {4.1.2}Oscilloscopio}{16}{}%
+\contentsline {subsection}{\numberline {4.1.3}Fotocamera}{17}{}%
+\contentsline {section}{\numberline {4.2}Esperienza 0}{17}{}%
