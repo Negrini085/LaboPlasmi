@@ -1,0 +1,82 @@
+\chapter{Procedure di Laboratorio}
+
+In questo capitolo sono esposte le principali tecniche e procedure utilizzate in laboratorio, con un'attenzione particolare
+al setup sperimentale e agli strumenti di misura presenti. 
+
+\section{Utilizzo della strumentazione}
+
+In primo luogo è necessario produrre il campo magnetico che consente di intrappolare le particelle cariche: il campo \textit{solenoidale} 
+è generato da una bobina che, se percorsa da $300\,A$ di corrente, determina la presenza di un campo pari a $0.1\,T$. Noi 
+lavoriamo solitamente con $I\,=\,390\,A$: data la linearità della relazione possiamo facimente ricavarci $B$.
+
+Oltre alla bobina principale, sono presenti quattro bobine di correzione per limitare il più possibile il disallineamento e le
+irregolarità del campo: notiamo infatti che se le scolleghiamo il plasma fuoriesce dalla trappola con una differente conformazione.
+I valori nominali delle quattro correnti sono: $0.48\,A,\,0.18\,A,\,1.06\,A,\,3.00\,A$.
+
+\subsection{Temporizzazione}
+
+Il setup sperimentale presente in laboratorio è molto complesso: come si riesce a gestire il macchinario e a produrre le 
+condizioni sperimentali ricercate? Un generatore ad 8 canali consente di temporizzare i potenziali nella trappola, specificandone 
+l'ampiezza e l'intervallo di tempo per i quali essi devono agire. Il programma che gestisce il generatore accetta come input un
+file di testo contenente le istruzioni necessarie: le seguenti righe di codice riportano un esempio di file di istruzioni
+funzionante ed utilizzato in laboratorio. 
+\begin{verbatim}
+    *Clock	1ms							
+    *Name	    ENDC	ENDP	ZERO	CH4	    CAM	    FD	    SW	    OSC
+    *Channels	1	    2	    3	    4	    5	    6	    7	    8
+    *Amplitude	100	    100	    100	    100	    100 	100	    100 	100
+    10000	    0	    0	    0	    0	    0	    0	    3	    0
+    2000	    0	    0	    0	    0	    0	    3	    0	    0
+    500	        5	    0	    0	    0	    0	    0	    0	    1
+    500	        5	    5	    0	    0	    0	    0	    0	    0
+\end{verbatim}
+La prima riga consente di scegliere la scala di tempo con la quale di vogliono specificare le istruzioni: le possibili scelte
+sono $1\,ms$ oppure $1\,\mu s$ (da indicare però come $1MHz$). La seconda e la terza riga consentono di associare delle
+etichette ai vari canali presenti: solitamente i primi due sono riservati ai potenziali di confinamento, l'ultimo all'
+oscilloscopio e quello indicato dal nome FD al feedback damping. Il canale 7 è riservato allo switch per generare il plasma, 
+mentre il canale 5 è quello del trigger della camera CCD.
+I primi due canali non riportano i valori del potenziale di confinamento, ma sono degli interrutori modulari per l'attivazione
+del potenziale confinante: i possibili valori variano fra 0 (potenziale più negativo) e 5 (potenziale più positivo). Notiamo 
+che nella penultima riga il canale ENDC ha come valore 5: questo accade perchè vogliamo rimuovere la barriera di potenziale
+presente nell'estremità dove è posto il collettore per valutare la quantità di carica del plasma prodotto. La riga precedente
+abilita l'utilizzo del feedback damping: questo consente di riportare il plasma prodotto (solitamente fuori asse) verso il 
+centro della trappola.
+
+Le istruzioni presenti sono \textbf{sequenziali}: ogni singola riga non può avere una durata superiore alle 30000 unità
+di tempo selezionate e su ogni colonna deve essere riportata l'informazione relativa allo specifico canale.\\
+
+Una volta prodotto il file di controllo, lo si deve fornire come input del programma \textbf{Waveform Generator}: per caricarlo
+si deve seguire il path \textit{file/import} e svolgere le istruzioni che compaiono a video. Selezionando \textit{output} e 
+\textit{configure channel} è possibile verificare la corretta corrispondenza dei canali: una volta aver effettuato questa 
+configurazione è necessario selezionale l'opzione \textit{send all}.
+
+\subsection{Oscilloscopio}
+
+L'oscilloscopio che viene utilizzato in laboratorio presenta 4 canali:
+\begin{enumerate}[itemsep=0pt]
+    \item segnale proveniente dal \textbf{collettore} \\
+    \item amplificatore in trans-impedenza, con segnale proveniente da \textbf{$S_{2b}$}    \\
+    \item trigger dell'oscilloscopio, con soglia pari a $500\,mV$ \\
+    \item libero  
+\end{enumerate}
+Nel momento in cui vengono salvate le misurazioni, il file che viene prodotto contiene solamente i valori numerici 
+delle quantità che sono in quel momento visibili sull'oscilloscopio: lavorando con il secondo canale possiamo apprezzare
+l'efficacia del \textit{feedback damping}, che smorza esponenzialmente il segnale legato all'offset del plasma prodotto
+in $6/7\,ms$. L'oscilloscopio presenta 12 bit verticali, ossia $2^{12}$ divisioni: la  risoluzione in ordinata può essere
+molto elevata. Lo strumento presente in laboratorio può produrre degli errori in presa dati: quando il segnale preso in analisi
+è fuori scala potrebbe accadere che a volte produca dei valori infiniti (nel file di output sono presenti i simboli $\infty$).
+Per evitare questa problematica è necessario lavorare a scale differenti, che consentano di contenere nella schermata tutto
+il segnale che si vuole analizzare.
+
+\subsection{Fotocamera}
+
+La fotocamera uzilizzata scatta delle foto di dimensioni \verb|2448 x 2048|: tali valori sono eccessivi, per questo motivo è
+consigliabile effettuare un binning per dimezzare sia il numero di righe che il numero di colonne. Il tempo di esposizione
+con cui vengono stampate le foto dipende dallo scopo con cui viene scattata l'immagine: $t_{esp}\,=\,2\,ms$ se vogliamo 
+investigare del plasma, oppure $t\,=\,2\,s$ se vogliamo valutare le dimensioni, in metri, del singolo pixel.
+
+\section{Esperienza 0}
+
+L'esperienza introduttiva in laboratorio consiste nello studio di caratteristiche fondamentali del plasma come per esempio la 
+carica totale: una frazione importante dell'esperimento è dedicata alla calibrazione dell'apparato e allo studio delle sistematiche
+dovute per esempio alla presenza di rumore.
