@@ -16,7 +16,7 @@ clc
 
 
 %---------------------------------------------------------------%
-%                  VALORE DELLA CARICA IONICA                   %
+%                       VALORE DELLA CARICA                     %
 %---------------------------------------------------------------%
 
 
@@ -79,12 +79,18 @@ plot(t, scelta_smooth(3, :), 'b-'); hold on; grid on;
 plot(t, scelta_smooth(4, :), 'c-'); hold on; grid on;
 plot(t, scelta_smooth(5, :), 'y-'); hold on; grid on;
 legend('Data', 'N = 50', 'N = 100', 'N = 150', 'N = 200', 'N = 250')
-xlabel('Tempo (ms)'); ylabel('Potenziale (V)'); title('Confronto fra smoothing')
+xlabel('Tempo (ms)'); ylabel('Potenziale (mV)'); title('Confronto fra smoothing')
 
 % Decido di lavorare con un numero di punti pari a 100 per effettuare lo
 % smoothing: il segnale lisciato sarà memorizzato nella variabile v_smooth
 vsign_max = zeros(31, 1); capacity = zeros(31, 1); Navg = 100; res = 1e6;
 car_ioni = zeros(31, 1);
+
+
+
+% PUNTO 3 ---> Implemento dei metodi che mi consentono di calcolare la
+%              carica della popolazione ionica facente parte del plasma
+%              preso in analisi
 
 for i=1:33
     if i ~= 10 && i ~= 31    % Scarto 10 e 31 perchè hanno valore massimo netttamente inferiore (sistematiche??)
@@ -130,4 +136,45 @@ fprintf('La carica media della popolazione ionica è pari a: %e\n', mean(car_ion
 
 
 
+% PUNTO 4 ---> Implemento dei metodi che mi consentono di calcolare la
+%              carica di elettroni presente nel plasma in analisi
+vsign_min = zeros(33, 1); car_ele = zeros(33, 1);
+for i=1:33
+    if i ~= 31
+        if i < 10
+            path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/electron_discharge/rcdisch/rcdisch/rcdisch_0' num2str(i) '.txt'];
+        else
+            path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/electron_discharge/rcdisch/rcdisch/rcdisch_' num2str(i) '.txt'];
+        end
+        data = fopen(path, 'rt');
+        N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
+        t = filescan {1,1}; v = filescan {1,2}; dim = length(v);
 
+        v_smooth = smooth(v, Navg);
+        [vsign_min(i) ind] = min(v_smooth);
+
+        % Effettuo fit esponenziale per la determinazione del tempo
+        % caratteristico del decadimento da cui ricavare la capacità e di
+        % conseguenza la carica degli elettroni
+        myfit = fit(0.001* t(ind:70000), 0.001* v_smooth(ind:70000), 'exp1', 'Start', [-2.5, 200]); 
+        myfit_coeff = coeffvalues(myfit);
+        capacity(i) = -1.0/(myfit_coeff(2) * res);
+
+        % Valuto l'integrale della corrente per poter determinare quale sia
+        % la carica degli elettroni intrappolati nella trappola: parto 
+        % dallo 0 (inizio della scarica) fino a dove ho effettuato il 
+        % fit esponenziale - Mi ricordo di come il tempo sia fornito in 
+        % millisecondi e l'ampiezza del segnale in Volt
+        appo = 0;
+        delta_t = (t(39150) - t(39149)) * 0.001;
+        car_ele(i) = sum(v_smooth(39500:70000))/res * delta_t;
+
+        % Effettuo una correzione che mi consenta di tenere conto del
+        % potenziale rimanente
+        v_rim = 0.001 * mean(v_smooth(70000:end));
+        car_ele(i) = car_ele(i) + v_rim * capacity(i);
+    end
+end
+
+fprintf('\n')
+fprintf('La carica media della popolazione elettronica è pari a: %e\n', mean(car_ele) - mean(car_ioni))
