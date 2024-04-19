@@ -83,3 +83,51 @@ xlabel('Tempo (ms)'); ylabel('Potenziale (V)'); title('Confronto fra smoothing')
 
 % Decido di lavorare con un numero di punti pari a 100 per effettuare lo
 % smoothing: il segnale lisciato sarà memorizzato nella variabile v_smooth
+vsign_max = zeros(31, 1); capacity = zeros(31, 1); Navg = 100; res = 1e6;
+car_ioni = zeros(31, 1);
+
+for i=1:33
+    if i ~= 10 && i ~= 31    % Scarto 10 e 31 perchè hanno valore massimo netttamente inferiore (sistematiche??)
+        if i < 10
+            path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/ion_discharge/cdisch/cdisch_0' num2str(i) '.txt'];
+        else
+            path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/ion_discharge/cdisch/cdisch_' num2str(i) '.txt'];
+        end
+        data = fopen(path, 'rt');
+        N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
+        t = filescan {1,1}; v = filescan {1,2}; dim = length(v);
+
+        v_smooth = smooth(v, Navg);
+        [vsign_max(i) ind] = max(v_smooth);
+        vsign_max(i) = 0.001* vsign_max(i);
+
+        % Effettuo fit esponenziale per la determinazione del tempo
+        % caratteristico del decadimento da cui ricavare la capacità e di
+        % conseguenza la carica degli ioni intrappolati
+        myfit = fit(0.001* t(ind:70000), 0.001* v_smooth(ind:70000), 'exp1', 'Start', [-2.5, 200]); 
+        myfit_coeff = coeffvalues(myfit);
+        capacity(i) = -1.0/(myfit_coeff(2) * res);
+        
+        % Valuto l'integrale della corrente per poter determinare quale sia
+        % la carica degli ioni positivi intrappolati nelle regioni in cui è
+        % presente il potenziale delimitante: parto dallo 0 (inizio della 
+        % scarica) fino a dove ho effettuato il fit esponenziale - Mi
+        % ricordo di come il tempo sia fornito in millisecondi e l'ampiezza
+        % del segnale in millivolt
+        appo = 0;
+        delta_t = (t(39150) - t(39149)) * 0.001 * 0.001;
+        car_ioni(i) = sum(v_smooth(39500:70000))/res * delta_t;
+
+        % Effettuo una correzione che mi consenta di tenere conto del
+        % potenziale rimanente
+        v_rim = 0.001 * mean(v_smooth(70000:end));
+        car_ioni(i) = car_ioni(i) + v_rim * capacity(i);
+    end
+end
+
+fprintf('\n')
+fprintf('La carica media della popolazione ionica è pari a: %e\n', mean(car_ioni))
+
+
+
+
