@@ -15,15 +15,35 @@ clc
 
 
 
+
+
 %---------------------------------------------------------------%
-%                       VALORE DELLA CARICA                     %
+%                       CARICA DEGLI IONI                       %
 %---------------------------------------------------------------%
 
 
-% PUNTO 1 ---> Valuto l'offset totale del segnale per andare a correggere
+% PUNTO 1 ---> Studio la natura del rumore presente per una delle
+%              molteplici immagini di plasma che sono state scattate
+%              durante l'esperienza
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/ion_discharge/cdisch/cdisch_09.txt';
+data = fopen(path, 'rt');
+N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
+t = filescan {1,1}; v = filescan {1,2};
+
+figure;% Notiamo la presenza di un rumore gaussiano a media non nulla
+histogram(0.001 * v(1:36000), 80, 'Normalization', 'probability'); hold on; grid on;
+xlabel('Scarto (V)'); ylabel('Occorrenza'); title("Rumore: segnale scarica ionica n° 9")
+
+
+
+% PUNTO 2 ---> Valuto l'offset totale del segnale per andare a correggere
 %              eventuali sistematiche nella stima del potenziale e della
 %              scarica: per fare questo medio sui 33 segnali di scarica
 %              ionica che abbiamo preso in considerazione.
+disp('++++++++++++++++++++++++++++++++++++++++++++++++++')
+disp('+  Calcolo della carica degli ioni intrappolati  +')
+disp('++++++++++++++++++++++++++++++++++++++++++++++++++')
+fprintf('\n')
 path = ''; offset_ionsig = 0.0; dim = 0;
 for i=1:33
     if i < 10
@@ -41,7 +61,7 @@ for i=1:33
     offset_ionsig = offset_ionsig * (i - 1)/double(i) + mean(v(1:36000))/double(i);
 end
 
-disp("L'offset globale del segnale risulta essere pari a: " + num2str(offset_ionsig, 6))
+disp("L'offset globale del segnale risulta essere pari a: " + num2str(offset_ionsig, 6) + " mV")
 
 % Creo vettore di offset: serve per poterci riportare in una situazione che
 % non sia affetta da eccessive sistematiche
@@ -51,16 +71,12 @@ for i=1:length(v_offset)
 end
 
 
-% PUNTO 2 ---> Sottraggo l'offset globale del segnale e effettuo uno studio
-%              per determinare su quanti punti adiacenti fare lo smoothing:
-%              questo lo faccio su un solo grafico della scarica, poichè
-%              grazie alla riproducibilità del plasma sarà un ragionamento
-%              applicabile ad una qualsiasi scarica effettuata.
 
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/ion_discharge/cdisch/cdisch_09.txt';
-data = fopen(path, 'rt');
-N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
-t = filescan {1,1}; v = filescan {1,2}; v = v - v_offset;
+
+% PUNTO 3 ---> Effettuo uno studio per determinare su quanti punti adiacenti 
+%              fare lo smoothing: questo lo faccio su un solo grafico della 
+%              scarica, poichè grazie alla riproducibilità del plasma sarà 
+%              un ragionamento applicabile ad una qualsiasi scarica effettuata.
 
 % Creo un contenitore che mi consenta di fare un plot per studiare quale
 % sia il numero ottimale di punti da prendere per effettuare uno smoothing
@@ -72,6 +88,7 @@ for m=1:5
     scelta_smooth(m, :) = smooth(v,Navg);
 end
 
+figure;
 plot(t, v, 'k-'); hold on; grid on;
 plot(t, scelta_smooth(1, :), 'r-'); hold on; grid on;
 plot(t, scelta_smooth(2, :), 'g-'); hold on; grid on;
@@ -79,16 +96,16 @@ plot(t, scelta_smooth(3, :), 'b-'); hold on; grid on;
 plot(t, scelta_smooth(4, :), 'c-'); hold on; grid on;
 plot(t, scelta_smooth(5, :), 'y-'); hold on; grid on;
 legend('Data', 'N = 50', 'N = 100', 'N = 150', 'N = 200', 'N = 250')
-xlabel('Tempo (ms)'); ylabel('Potenziale (mV)'); title('Confronto fra smoothing')
+xlabel('Tempo (ms)'); ylabel('Potenziale (mV)'); title('Confronto fra smoothing: scarica ionica')
 
 % Decido di lavorare con un numero di punti pari a 100 per effettuare lo
 % smoothing: il segnale lisciato sarà memorizzato nella variabile v_smooth
-vsign_max = zeros(31, 1); capacity = zeros(31, 1); Navg = 100; res = 1e6;
-car_ioni = zeros(31, 1);
+Navg = 100; res = 1e6;
+vsign_max = zeros(31, 1); capacity = zeros(31, 1); car_ioni = zeros(31, 1);
 
 
 
-% PUNTO 3 ---> Implemento dei metodi che mi consentono di calcolare la
+% PUNTO 4 ---> Implemento dei metodi che mi consentono di calcolare la
 %              carica della popolazione ionica facente parte del plasma
 %              preso in analisi
 
@@ -132,13 +149,101 @@ for i=1:33
 end
 
 fprintf('\n')
-fprintf('La carica media della popolazione ionica è pari a: %e\n', mean(car_ioni))
+disp(['La carica media della popolazione ionica è pari a: ' num2str(mean(car_ioni), 4) 'C'])
+
+
+
+
+%---------------------------------------------------------------%
+%                     CARICA DEGLI ELETTRONI                    %
+%---------------------------------------------------------------%
+
+
+% PUNTO 1 ---> Studio la natura del rumore presente per una delle
+%              molteplici immagini di plasma che sono state scattate
+%              durante l'esperienza
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/electron_discharge/rcdisch/rcdisch/rcdisch_09.txt';
+data = fopen(path, 'rt');
+N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
+t = filescan {1,1}; v = filescan {1,2};
+
+figure;% Notiamo la presenza di un rumore gaussiano a media non nulla
+histogram(0.001 * v(1:36000), 80, 'Normalization', 'probability'); hold on; grid on;
+xlabel('Scarto (V)'); ylabel('Occorrenza'); title("Rumore: segnale scarica elettronica n° 9")
+
+
+
+% PUNTO 2 ---> Valuto l'offset totale del segnale per andare a correggere
+%              eventuali sistematiche.
+fprintf('\n\n')
+disp('++++++++++++++++++++++++++++++++++++++++++++++++++')
+disp('+     Calcolo della carica totale del plasma     +')
+disp('++++++++++++++++++++++++++++++++++++++++++++++++++')
+fprintf('\n')
+path = ''; offset_elsig = 0.0; dim = 0;
+for i=1:33
+    if i < 10
+        path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/electron_discharge/rcdisch/rcdisch/rcdisch_0' num2str(i) '.txt'];
+    else
+        path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Dati/Signals/electron_discharge/rcdisch/rcdisch/rcdisch_' num2str(i) '.txt'];
+    end
+    data = fopen(path, 'rt');
+    N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
+    t = filescan {1,1}; v = filescan {1,2}; dim = length(v);
+    % Valuto la media tenedo in considerazione quanto accade prima che
+    % avvenga la scarica: dovrei avere una quantità identicamente pari a
+    % zero, ma è effettivamente così??
+
+    offset_elsig = offset_elsig * (i - 1)/double(i) + mean(v(1:36000))/double(i);
+end
+
+disp("L'offset globale del segnale di scarica elettronica risulta essere pari a: " + num2str(offset_elsig, 6) + " V")
+
+% Creo vettore di offset: serve per poterci riportare in una situazione che
+% non sia affetta da eccessive sistematiche
+v_offset = zeros(dim, 1);
+for i=1:length(v_offset)
+    v_offset(i, 1) = offset_elsig;
+end
+
+
+
+
+% PUNTO 3 ---> Effettuo uno studio per determinare su quanti punti adiacenti 
+%              fare lo smoothing: questo lo faccio su un solo grafico della 
+%              scarica, poichè grazie alla riproducibilità del plasma sarà 
+%              un ragionamento applicabile ad una qualsiasi scarica effettuata.
+
+% Creo un contenitore che mi consenta di fare un plot per studiare quale
+% sia il numero ottimale di punti da prendere per effettuare uno smoothing
+% del segnale
+
+scelta_smooth = zeros(5, length(v));
+for m=1:5
+    Navg = m * 50 + 1;      % Scelgo a runtime il numero di punti da considerare per lo smooth
+    scelta_smooth(m, :) = smooth(v,Navg);
+end
+
+figure;
+plot(t, v, 'k-'); hold on; grid on;
+plot(t, scelta_smooth(1, :), 'r-'); hold on; grid on;
+plot(t, scelta_smooth(2, :), 'g-'); hold on; grid on;
+plot(t, scelta_smooth(3, :), 'b-'); hold on; grid on;
+plot(t, scelta_smooth(4, :), 'c-'); hold on; grid on;
+plot(t, scelta_smooth(5, :), 'y-'); hold on; grid on;
+legend('Data', 'N = 50', 'N = 100', 'N = 150', 'N = 200', 'N = 250')
+xlabel('Tempo (ms)'); ylabel('Potenziale (V)'); title('Confronto fra smoothing: scarica elettronica')
+
+% Decido di lavorare con un numero di punti pari a 100 per effettuare lo
+% smoothing: il segnale lisciato sarà memorizzato nella variabile v_smooth
 
 
 
 % PUNTO 4 ---> Implemento dei metodi che mi consentono di calcolare la
 %              carica di elettroni presente nel plasma in analisi
-vsign_min = zeros(33, 1); car_ele = zeros(33, 1);
+Navg = 100; res = 1e6;
+vsign_min = zeros(32, 1); capacity = zeros(32, 1); car_ele = zeros(32, 1);
+
 for i=1:33
     if i ~= 31
         if i < 10
@@ -177,4 +282,12 @@ for i=1:33
 end
 
 fprintf('\n')
-fprintf('La carica media della popolazione elettronica è pari a: %e\n', mean(car_ele) - mean(car_ioni))
+disp(['La carica media della popolazione elettronica è pari a: ' num2str(mean(car_ele) - mean(car_ioni), 4) ' C'])
+
+
+
+
+
+%---------------------------------------------------------------%
+%                  LEGAME INTENSITA' - CARICA                   %
+%---------------------------------------------------------------%
