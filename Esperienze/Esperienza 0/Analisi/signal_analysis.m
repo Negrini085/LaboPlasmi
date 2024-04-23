@@ -155,7 +155,6 @@ for i=1:33
         %-----------------------------------------------------%
         v_smooth = smooth(v, Navg);
         [vsign_min(i) ind] = min(v_smooth);
-        vsign_min(i) = 0.001* vsign_min(i);
 
 
         %------------------------------------------------------%
@@ -172,16 +171,18 @@ for i=1:33
         % Effettuo fit esponenziale per la determinazione del tempo
         % caratteristico del decadimento da cui ricavare la capacità e di
         % conseguenza la carica degli ioni intrappolati
-        myfit = fit(t(ind:70000), v_smooth(ind:70000), 'exp1', 'Start', [-2.5, 200]); 
+        tmin = 0.0002; tmax = 0.0008; 
+        indx = find(t>tmin & t<tmax);
+        myfit = fit(t(indx), v_smooth(indx), 'exp1', 'Start', [-2.5, 200]); 
         myfit_coeff = coeffvalues(myfit);
         capacity(i) = -1.0/(myfit_coeff(2) * res);
 
         dt = t(35123) - t(35122);
 
-        car_ele(i) = sum(v_smooth(t>0)) * dt/res + mean(v_smooth(end-100:end)) * capacity(i);
+        car_ele(i) = sum(v_smooth(t>0)) * dt/res + mean(v_smooth(end-50:end)) * capacity(i);
     end
 end
 
 fprintf('\n')
 car_ele = car_ele(car_ele<0);
-disp(['La carica media della popolazione elettronica è pari a: ' num2str(mean(car_ele) - mean(car_ioni), 4) ' C'])
+disp(['La carica media della popolazione elettronica è pari a: ' num2str(mean(car_ele), 4) ' C'])
