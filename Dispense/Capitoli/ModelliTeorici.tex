@@ -22,7 +22,7 @@ $$f\left(\vec{x},\,\vec{p},\,t\right)d^3xd^3p\,=\,\text{numero medio di particel
 Questo approccio consente di studiare un'ampia classe di fenomeni collettivi che dipendono dalla struttura della distribuzione
 all'equilibrio nello spazio delle fasi.
 
-\section{Descrizione cinetica}
+\section{Trattazione cinetica}
 
 Consideriamo un plasma non neutro di elettroni caratterizzati da carica $e$ e massa $m$: per scale di tempo corte rispetto
 al tempo di collisione la funzione di distribuzione di singola particella $f\left(\vec{x},\,\vec{p},\,t\right)$ evolve secondo
@@ -32,3 +32,19 @@ l'equazione di Vlasov, che descrive l'evoluzione incomprimibile secondo il teore
     \left\{\frac{\partial}{\partial t}\,+\,\vec{v}\cdot\frac{\partial}{\partial \vec{x}}\,+\,e\left(\vec{E}\,+\,\frac{\vec{v}\times\vec{B}}{c}\right)\cdot\frac{\partial}{\partial \vec{p}}\right\}f\left(\vec{x},\,\vec{p},\,t\right)\,=\,0
     \label{equation: VlasovEq}
 \end{equation}
+Notiamo che è presente un termine in cui figurano sia il campo elettrico che il campo magnetico: possiamo determinarli utilizzando le
+equazioni di Maxwell
+\begin{align}
+    &\nabla \times \vec{E} = -\frac{1}{c}\left[c\right]\frac{\partial \vec{B}}{\partial t} \\
+    &\nabla \times \vec{B} = \frac{4\pi}{c}\left[\frac{\mu_0 c}{4\pi}\right]e\int{d^3p\vec{v}f(\vec{x},\,\vec{p},\,t)} + \frac{4\pi}{c}\left[\frac{\mu_0 c}{4\pi}\right]\vec{J}_{ext} + \frac{1}{c}\left[\frac{1}{c}\right] + \frac{\partial \vec{E}}{\partial t} \\
+    &\nabla \cdot \vec{E} = 4\pi\left[\frac{1}{4\pi\varepsilon_0}\right]e\int{d^3p f\left(\vec{x},\,\vec{p},\,t\right)} + 4\pi\left[\frac{1}{4\pi\varepsilon_0}\right]\rho_{ext} \\
+    &\nabla \cdot \vec{B} = 0
+\end{align}
+Le equazioni di Vlasov-Maxwell sono altamente non lineari, in quanto $f\left(\vec{x},\,\vec{p},\,t\right)$ è modificata dai campi auto-indotti
+dal plasma, che a loro volta evolvono quando la funzione di distribuzione cambia. In condizioni di stato quasi-stazionario è possibile
+porre a zero tutte le derivate parziali rispetto al tempo in modo da determinare le soluzioni stazionarie $f^0\left(\vec{x},\,\vec{p}\right)$,
+$\vec{E}^0\left(\vec{x}\right)$ e $\vec{B}^0\left(\vec{x}\right)$: lavorando con piccole perturbazioni è possibile valutare la stabilità
+degli equilibri così individuati.
+
+\section{Trattazione macroscopica fluida}
+
