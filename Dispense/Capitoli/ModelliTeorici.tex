@@ -8,7 +8,7 @@ alle tempistiche medie fra collisioni. Per descrivere un tale plasma possonon es
     \item \textit{trattazione cinetica}, basata sulle equazioni di Vlasov-Maxwell
 \end{itemize}
 Nella prima delle due descrizioni vengono presi in considerazione osservabili macroscopici quali $n\left(\vec{x},\,t\right)$, 
-$v\left(\vec{x},\,t\right)$ e $P\left(\vec{x},\,t\right)$: tali quantità evolvono in dipendenza dei campi elettrici e magnetici
+$V\left(\vec{x},\,t\right)$ e $P\left(\vec{x},\,t\right)$: tali quantità evolvono in dipendenza dei campi elettrici e magnetici
 presenti, che possono essere determinati mediante le equazioni di Maxwell. Se il plasma in analisi è freddo è possibile trascurare
 le variazioni di pressione, ponendo a zero la varianza del tendore delle pressioni. Il vantaggio di un tale approccio è la sua 
 elevata semplicità: in ambito fluido non è però possibile trattare instabilità collettive e fenomeni caratteristici di un plasma, 
@@ -46,5 +46,43 @@ porre a zero tutte le derivate parziali rispetto al tempo in modo da determinare
 $\vec{E}^0\left(\vec{x}\right)$ e $\vec{B}^0\left(\vec{x}\right)$: lavorando con piccole perturbazioni è possibile valutare la stabilità
 degli equilibri così individuati.
 
-\section{Trattazione macroscopica fluida}
+\section{Trattazione fluida}
 
+In alcune circostanze il comportamento globale del plasma può essere descritto utilizzando un'approccio fluido-dinamico: 
+siamo interessati alla densità del sistema $n\left(\vec{x},\,t\right)$, alla velocità media $\vec{V}\left(\vec{x},\,t\right)$,
+al momento medio $\vec{P}\left(\vec{x},\,t\right)$ ed al tensore delle pressioni $\mathbf{P}\left(\vec{x},\,t\right)$. Per 
+passare dalla trattazione cinetica a quella fluida introduciamo i primi momenti della distribuzione $f\left(\vec{x},\,\vec{p},\,t\right)$ 
+integrando nei momenti, in modo tale da perdere l'informazione cinetica e mantenere solo quella spaziale. Possiamo quindi 
+riconoscere:
+\begin{equation}
+    n\left(\vec{x},\,t\right)\,=\,\int d^3p \,f\left(\vec{x},\,\vec{p},\,t\right)
+    \label{equation: numb_density}
+\end{equation}
+\begin{equation}
+    n\left(\vec{x},\,t\right)\vec{V}\left(\vec{x},\,t\right)\,=\,\int d^3p\,\vec{v} f\left(\vec{x},\,\vec{p},\,t\right)
+    \label{equation: mean_velocity}
+\end{equation}
+\begin{equation}
+    n\left(\vec{x},\,t\right)\vec{P}\left(\vec{x},\,t\right)\,=\,\int d^3p\,\vec{p} f\left(\vec{x},\,\vec{p},\,t\right)
+    \label{equation: p_tens}
+\end{equation}
+\begin{equation}
+    \mathbf{P}\left(\vec{x},\,t\right)\,=\,\int d^3p\left[\vec{p}\,-\,\vec{P}\left(\vec{x},\,t\right)\right]\left[\vec{v}\,-\,\vec{V}\left(\vec{x},\,t\right)\right] f\left(\vec{x},\,\vec{p},\,t\right)
+    \label{equation: p_tens1}
+\end{equation}
+Possiamo ora ottenere le equazioni fluide andando ad integrare nei momenti: la semplice integrazione in $d^3p$ restituisce 
+l'equazione di continuità, mentre lavorando con $\vec{p}d^3p$ è possibile ottenere l'equazione che descrive l'equilibrio delle
+forze:
+\begin{equation}
+    \frac{\partial n}{\partial t}\,+\,\nabla \cdot \left(n\vec{x}\right)
+    \label{equation: continuity_eq}
+\end{equation}
+\begin{equation}
+    n\left(\frac{\partial}{\partial t}\,+\,\vec{V}\cdot \nabla\right)\vec{P}\,+\,\nabla \cdot \mathbf{P}\,=\,nq\left(\vec{E}\,+\,\frac{1}{c}\left[c\right]\vec{v} \times \vec{b}\right)
+    \label{equation: force_balance}
+\end{equation}
+Abbiamo trovato un sistema di equazioni differenziali in cui nell'equazione che descrive l'evoluzione del momento di ordine 0 
+compare il momento di primo ordine ed in generale nell'equazione riguardante il k-esimo momento è presente il k+1-esimo: per 
+chiudere il sistema supponiamo di trattare un plasma freddo, ossia caratterizzato da velocità termica molto inferiore alla 
+velocità fluida in gioco. Così facendo possiamo trascurare il termine di ordine superiore, ossia la divergenza del tensore delle 
+pressioni, di fatto trascurando l'agitazione termica rispetto ai moti del fluido.
