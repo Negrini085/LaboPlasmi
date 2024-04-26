@@ -1,4 +1,34 @@
 \chapter{Modelli teorici}
 
-In questo capitolo investighiamo gli approcci teorici che consentono di trattare un plasma non neutro.
+In questo capitolo investighiamo gli approcci teorici che consentono di trattare un plasma non collisionale e non neutro: ciò
+vuol dire che il sistema presenta una carica netta e che le proprietà sono studiate per intervalli di tempo piccoli rispetto
+alle tempistiche medie fra collisioni. Per descrivere un tale plasma possonon essere utilizzati due formalismi:
+\begin{itemize}
+    \item \textit{trattazione di fluido macroscopico}, basata sulle equazioni di Maxwell e sull'equazione dei momenti
+    \item \textit{trattazione cinetica}, basata sulle equazioni di Vlasov-Maxwell
+\end{itemize}
+Nella prima delle due descrizioni vengono presi in considerazione osservabili macroscopici quali $n\left(\vec{x},\,t\right)$, 
+$v\left(\vec{x},\,t\right)$ e $P\left(\vec{x},\,t\right)$: tali quantità evolvono in dipendenza dei campi elettrici e magnetici
+presenti, che possono essere determinati mediante le equazioni di Maxwell. Se il plasma in analisi è freddo è possibile trascurare
+le variazioni di pressione, ponendo a zero la varianza del tendore delle pressioni. Il vantaggio di un tale approccio è la sua 
+elevata semplicità: in ambito fluido non è però possibile trattare instabilità collettive e fenomeni caratteristici di un plasma, 
+come il Landau damping.
 
+Per includere la fenomenologia termica nell'analisi del plasma è necessario utilizzare un approccio \textit{cinetico}: in questo
+caso l'attenzione è rivolta alla distribuzione $f\left(\vec{x},\,\vec{p},\,t\right)$, che descrive la densità di probabilità di 
+avere il sistema nel punto $\left(\vec{x},\,\vec{p}\right)$ dello spazio delle fasi al tempo $t$. Per come è definita la
+distribuzione $f$, abbiamo che
+$$f\left(\vec{x},\,\vec{p},\,t\right)d^3xd^3p\,=\,\text{numero medio di particelle nell'intorno di } \left(\vec{x},\,\vec{p}\right)$$
+Questo approccio consente di studiare un'ampia classe di fenomeni collettivi che dipendono dalla struttura della distribuzione
+all'equilibrio nello spazio delle fasi.
+
+\section{Descrizione cinetica}
+
+Consideriamo un plasma non neutro di elettroni caratterizzati da carica $e$ e massa $m$: per scale di tempo corte rispetto
+al tempo di collisione la funzione di distribuzione di singola particella $f\left(\vec{x},\,\vec{p},\,t\right)$ evolve secondo
+l'equazione di Vlasov, che descrive l'evoluzione incomprimibile secondo il teorema di Liouville nello spazio delle fasi
+6-dimensionale $\left(\vec{x},\,\vec{p}\right)$.
+\begin{equation}
+    \left\{\frac{\partial}{\partial t}\,+\,\vec{v}\cdot\frac{\partial}{\partial \vec{x}}\,+\,e\left(\vec{E}\,+\,\frac{\vec{v}\times\vec{B}}{c}\right)\cdot\frac{\partial}{\partial \vec{p}}\right\}f\left(\vec{x},\,\vec{p},\,t\right)\,=\,0
+    \label{equation: VlasovEq}
+\end{equation}
