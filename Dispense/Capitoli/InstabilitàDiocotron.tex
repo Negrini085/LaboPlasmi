@@ -1,1 +1,53 @@
-\chapter{Instabilità di Diocotron}
+\chapter{Instabilità di diocotron}
+
+Nel capitolo precedente, la velocità angolare era indipendente dalla posizione radiale (ossia $\partial \omega/\partial r\,=\,0$): 
+in questo capitolo non è più presente questa restrizione poichè esamineremo le caratteristiche principali dell'instabilità di 
+\textit{diocotron}, che è causata da una velocità relativa non nulla presente fra diversi strati di fluido. Il plasma che 
+vogliamo trattare è composto da soli elettroni ed a bassa densità: il regime con cui vogliamo lavorare è
+\begin{equation}
+    \begin{cases}
+        \omega_p^2/\Omega^2\, \ll\,1,    \\
+        n_i\left(r\right)\,=\,0.
+    \end{cases}
+\end{equation}
+Il plasma elettronico che prendiamo in considerazione è confinato radialmente da un campo magnetico assiale $\vec{B}\,=\,B_0\hat{e}_z$: 
+dato il limite in cui ci siamo posti trascuriamo gli effetti inerziali elettronici ($m\,\rightarrow\,0$). L'equazione dei momenti 
+fornisce un criterio per determinare il movimento di un elemento di fluido, in quanto il primo membro dipendente dalla massa elettronica 
+risulta essere identicamente nullo come evidenziato in seguito
+\begin{equation}
+    0\,=\,-en\left(\vec{x},\,t\right)\left\{\vec{E}\left(\vec{x},\,t\right)\,+\,\frac{V\left(\vec{x},\,t\right) \times B_0 \hat{e}_z}{c}\left[c\right]\right\}
+    \label{equation: mom_eq_dioc}
+\end{equation}
+Ricavare dalla relazione \eqref{equation: mom_eq_dioc} la velocità media con cui evolve il plasma è immediato: in seguito è riportato il 
+risultato e le varie componenti espresse in coordinate polari, che si addicono maggiormente a trattare le simmetrie di nostro interesse. 
+\begin{equation}
+    \vec{V}\left(\vec{x},\,t\right)\,=\,-\frac{c}{B_0}\nabla \Phi \left(\vec{x},\,t\right) \times \hat{e}_z\left[\frac{1}{c}\right]
+    \label{equation: velocità_noinerzia}
+\end{equation}
+\begin{equation}
+    V_r\left(r,\,\theta,\,t\right)\,=\,-\frac{c}{B_0 r}\left[\frac{1}{c}\right]\frac{\partial}{\partial \theta} \left[\Phi\left(r,\,\theta,\,t\right)\right]
+\end{equation}
+\begin{equation}
+    V_\theta\left(r,\,\theta,\,t\right)\,=\,\frac{c}{B_0}\left[\frac{1}{c}\right]\frac{\partial}{\partial r}\left[\Phi\left(r,\,\theta,\,t\right)\right]
+\end{equation}
+Notiamo che la velocità calcolata con la relazione \eqref{equation: velocità_noinerzia} ha divergenza nulla: questo comporta la scomparsa di 
+uno dei tre termini che costituiscono l'equazione di continuità, che insieme all'equazione di Poisson fornisce tutte le informazioni necessarie 
+per descrivere l'evoluzione del sistema. Espresse in coordinate polari, esse risultano:
+\begin{equation}
+    \left\{\frac{\partial}{\partial t}\,-\,\frac{c}{B_0 r}\left[\frac{1}{c}\right]\frac{\partial \Phi}{\partial \theta}\frac{\partial}{\partial r}\,+\,\frac{c}{B_0 r}\left[\frac{1}{c}\right]\frac{\partial \Phi}{\partial r}\frac{\partial}{\partial \theta}\right\} n\left(r,\,\theta,\,t\right)\,=\,0
+    \label{equation: continuità_no_inerziapol}
+\end{equation}
+\begin{equation}
+    \left(\frac{1}{r}\frac{\partial}{\partial r}r\frac{\partial}{\partial r}\,+\,\frac{1}{r^2}\frac{\partial^2}{\partial \theta^2}\right)\Phi\left(r,\,\theta,\,t\right)\,=\,4\pi \left[\frac{1}{4\pi\varepsilon_0}\right]e n\left(r,\,\theta,\,t\right)
+    \label{equation: poisson_no_inerziapol}
+\end{equation}
+Notiamo che nel limite di $m\,\rightarrow\,0$ il rapporto $\left(\omega_p/\Omega\right)^2$ che definisce le condizioni in cui stiamo considerando 
+il plasma si avvicina allo zero, mentre la frequenza di diocotron
+\begin{equation}
+    \omega_D\left(r\right)\,=\,\frac{\omega_p^2}{2\Omega}\,=\,\frac{2\pi n_0\left(r\right)ec}{B_0}
+    \label{equation: diocotron_freq}
+\end{equation}
+rimane finita.
+
+\section{Teoria perturbativa lineare}
+
