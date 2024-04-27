@@ -305,3 +305,75 @@ particella e la rotazione rigida del plasma.
     \caption{Traiettoria descritte da un elettrone nella colonna di plasma. }
     \label{figure: CurvaEpitrocoide}
 \end{figure}
+
+\section{Equilibrio termico}
+
+Vogliamo ora esaminare le proprietà all'equilibrio di un plasma assi-simmetrico non-neutro tenendo in considerazione gli effetti 
+di natura termica: lo strumento ideale sono le equazioni di Vlasov-Poisson in condizioni di stato stazionario, ossia tali per cui 
+$\partial/\partial t \,=\,0$. Le costanti del moto del problema in analisi sono:
+\begin{align}
+    & H\,=\,\frac{1}{2m}\left(p_r^2\,+\,p_\theta^2\,+\,p_z^2\right)\,-\,e\Phi\left(r\right) \qquad \qquad \qquad  \text{Energia} \\
+    & P_\theta\,=\,r\left(p_\theta\,-\,\frac{mr\Omega}{2}\right)  \qquad \qquad \qquad \text{Momento angolare canonico}  \\
+    & p_z \qquad \qquad \qquad \qquad \qquad \qquad \qquad \text{Quantità di moto - componente z}
+\end{align}
+L'identificazione delle costanti del moto è fondamentale poichè fornisce degli strumenti che consentono di determinare la 
+distribuzione $f\left(r,\,\vec{p}\right)$ nello spazio delle fasi. Supponiamo infatti che $c\,=\,c\left(\vec{x},\,\vec{p},\,t\right)$ 
+sia una costante del moto: in tal caso sappiamo che 
+\begin{equation}
+    \frac{dc}{dt}\,=\,0 \qquad \longrightarrow \qquad \frac{\partial c}{\partial t}\,+\,\vec{v} \cdot \nabla c\,+\,\frac{F}{m} \cdot \nabla_{\vec{v}}\,c\,=\,0, 
+    \label{equation: const_Vlasov}
+\end{equation}
+ossia l'evoluzione di c nello spazio delle fasi rispetta il teorema di Liouville. Una distribuzione $f\,=\,f\left(c_1,\,c_2\,\dots\, c_k\right)$ 
+che sia funzione di costanti del moto è soluzione dell'equazione di Vlasov: nel caso di nostro interesse andremo allora a 
+cercare una relazione funzionale del tipo $f\left(H,\,P_\theta,\,p_z\right)$. Una classe di equilibri interessanti è quella
+delle funzioni di distribuzione che dipendono da $H$ e $P_\theta$ per mezzo di una combinazione lineare del tipo $H\,-\,\omega P_\theta$:  
+tali $f$ descrivono rotazioni rigide della colonna di plasma con $\omega$ costante, senza quindi strati che 
+scorrono a velocità diverse. Siamo interessati a distribuzioni definite nello spazio delle fasi come
+\begin{equation}
+    f\left(r,\,\vec{p}\right)\,=\,f\left(H\,-\,\omega P_\theta,\,p_z\right).
+    \label{equation: interesting_distributions}
+\end{equation}
+Manipolando le definizioni di momento angolare canonico ed energia del sistema preso in considerazione è possibile ottenere una 
+formulazione alternativa per la combinazione lineare dalla quale dipende la distribuzione di probabilità:
+\begin{equation}
+    H\,-\,\omega P_\theta\,=\,\frac{1}{2m}\left[p_r^2\,+\,\left(p_\theta\,-\,m\omega r\right)^2\,+\,p_z^2\right] + \psi \left(r\right),
+    \label{equation: lincomb_alternative}
+\end{equation}
+dove $\psi\left(r\right)$ è un potenziale efficace della forma
+\begin{equation}
+    \psi \left(r\right)\,=\,\frac{mr^2}{2}\left(\omega\Omega\,-\,\omega^2\right)\,-\,e\Phi\left(r\right)
+    \label{equation: effective_potential}
+\end{equation}
+Lavoriamo ora con 
+\begin{equation}
+    f\left(r,\,\vec{p}\right)\,=\,\frac{\hat{n}_e}{\left(2\pi mk_B T\right)^{3/2}}\exp{\left(-\frac{H\,-\,\omega P_\theta}{k_BT}\right)}, 
+    \label{equation: dist_termeq}
+\end{equation}
+che è una distribuzione dipendente da un'hamiltoniana di rotazione rigida in condizioni di equilibrio termico a cui un plasma non-neutro isolato 
+tenderebbe per mezzo di collisioni binarie fra costituenti elementari. Possiamo determinare quale sia la densità d'equilibrio 
+finale integrando la $f\left(r,\,\vec{p}\right)$ nello spazio dei momenti, ottenedo che 
+\begin{equation}
+    n\left(r\right)\,=\,\hat{n}_e \exp{\left[-\frac{\psi\left(r\right)}{k_B T}\right]},
+    \label{equation: equilibrium_dens}
+\end{equation}
+con una forte dipendenza sul potenziale efficace. Una volta determinato il profilo di densità, sostituiamo il risultato ottenuto 
+nell'equazione di Poisson per ricavare la seguente relazione differenziale per il potenziale efficace:
+\begin{equation}
+    \frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial \psi}{\partial r}\right)\,=\,2m\left\{\left(\omega\Omega\,-\,\omega^2\,-\,\frac{\omega_p^2}{2}\right)\,+\,\frac{\omega_p^2}{2}\left[1\,-\,\exp{\left(-\frac{\psi\left(r\right)}{k_BT}\right)}\right]\right\}
+    \label{equation: PoissonPsi}
+\end{equation}
+La colonna di plasma è radialmente confinata (ossia $n_e\left(r \rightarrow \infty\right)\,=\,0$) solamente nel momento in cui 
+\begin{equation}
+    \omega\Omega\,-\,\omega^2\,-\,\frac{\omega_p^2}{2} > 0:
+    \label{equation: condizione_eqtermico}
+\end{equation}
+notiamo che le velocità angolari limite $\omega^\pm$ sono proprio quelle che avevamo calcolato nel caso dell'equilibrio di una 
+colonna infinita di plasma freddo in rotazione. Se $\omega$ si discosta sensibilmente dai valori soluzione dell'equazione di secondo 
+grado e si trova nella regione ammessa, allora il profilo di densità presenterà una dipendenza radiale debole: se al contrario 
+$\omega \simeq \omega^\pm$ si ha una caduta repentina di $n\left(r\right)$ nel giro di alcune lunghezze di Debye.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Immagini/ProfiliDensitàTerm.png}
+    \caption{Differenti profili di densità: l'andamento a zero è fortemente legato alla $\omega$ considerata. }
+    \label{figure: CurvaEpitrocoide}
+\end{figure}
