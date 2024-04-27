@@ -244,4 +244,64 @@ a regimi di rotazione lenta.
 
 \'E interessante esaminare i movimenti delle singole particelle costituenti il plasma: un elettrone percepisce l'azione di 
 forze di natura elettro-magnetica prodotte dal campo elettrico auto-indotto e dal campo magnetico esterno, che stiamo continuando 
-a considerare diretto lungo l'asse z.
+a considerare diretto lungo l'asse z. Il movimento di un elettrone è determinato da
+\begin{equation}
+    m\frac{d\vec{v}}{dt}\,=\,-e\left(\vec{E}\,+\,\frac{\vec{v} \times B_0 \hat{e}_z}{c}\left[c\right]\right)
+    \label{equation: electron_movement}
+\end{equation}
+dove con $\vec{v}$ indichiamo la velocità della particella ed il campo $\vec{E\left(r\right)}$ è quello che abbiamo determinato 
+nella sezione precedente, ossia:
+\begin{equation}
+    \vec{E}\left(r\right)\,=\,-\frac{m}{2e}\omega_p^2 \hat{e}_r
+\end{equation}
+La componente $v_z$ della velocità è costante perchè il campo elettrico è diretto radialmente e il campo magnetico lungo l'asse z: 
+vogliamo ora valutare quanto accada nel piano xy. Possiamo esplicitare le prime due componenti dell'equazione vettoriale \eqref{equation: electron_movement} 
+in coordinate cartesiane, ottenendo un sistema di due equazioni differenziali accoppiate:
+\begin{equation}
+    \frac{d^2 x\left(t\right)}{dt^2}\,=\,\frac{1}{2}\omega_p^2 x\left(t\right)\,-\,\Omega \frac{dy\left(t\right)}{dt}
+    \label{equation: xcomp_singlepart}
+\end{equation}
+\begin{equation}
+    \frac{d^2 y\left(t\right)}{dt^2}\,=\,\frac{1}{2}\omega_p^2 y\left(t\right)\,+\,\Omega \frac{dx\left(t\right)}{dt}
+    \label{equation: ycomp_singlepart}
+\end{equation}
+Per analizzare il movimento dell'elettrone, studiamo il sistema di equazioni in un sistema di riferimento rotante con velocità 
+angolare $\omega$, soluzione dell'equazione di secondo grado che consente di valutare l'equilibrio di una colonna di plasma in 
+moto di rotazione rigida attorno al proprio asse. Effettuando il seguente cambio di coordinate 
+\begin{equation}
+    \begin{pmatrix}
+        x_r \\
+        y_r 
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \cos{\left(\omega t\right)} & \sin\left(\omega t\right) \\
+        -\sin{\left(\omega t\right)} & \cos{\left(\omega t\right)}
+    \end{pmatrix}
+    \begin{pmatrix}
+        x   \\
+        y
+    \end{pmatrix}
+    \label{equation: change_coord}
+\end{equation}    
+si ottiene che 
+\begin{equation}
+    \frac{d^2x_r\left(t\right)}{dt^2}\,=\,\pm \left(\omega^+\,\omega^-\right)\frac{dy_r\left(t\right)}{dt}
+    \label{equation: xcomp_singlepart1}
+\end{equation}
+\begin{equation}
+    \frac{d^2y_r\left(t\right)}{dt^2}\,=\,\mp \left(\omega^+\,\omega^-\right)\frac{dx_r\left(t\right)}{dt}.
+    \label{equation: ycomp_singlepart1}
+\end{equation}
+Il set di equazioni così determinato descrive un moto di girazione con periodo $T\,=\,2\pi/\left(\omega^+\,-\,\omega^-\right)$: la 
+direzione di rotazione dipende dalla soluzione che si vuole considerare, ossia se quella in un sistema di riferimento \textit{slow rotating} 
+oppure \textit{fast rotating}. Il moto al quale siamo interessati è quello nel sistema di riferimento del laboratorio: dobbiamo 
+effettuare il cambio di coordinate inverso a quello introdotto dall'equazione \eqref{equation: change_coord}. La traiettoria 
+descritta dall'elettrone è una \textit{epitrocoide}: questo accade poichè vanno considerati contemporaneamente il moto della singola 
+particella e la rotazione rigida del plasma.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Immagini/CurvaEpitrocoide.png}
+    \caption{Traiettoria descritte da un elettrone nella colonna di plasma. }
+    \label{figure: CurvaEpitrocoide}
+\end{figure}
