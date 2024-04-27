@@ -185,4 +185,4 @@ end
 
 fprintf('\n')
 car_ele = car_ele(car_ele<0);
-disp(['La carica media della popolazione elettronica è pari a: ' num2str(mean(car_ele), 4) ' C'])
+disp(['La carica media della popolazione elettronica è pari a: ' num2str(mean(car_ele) - mean(car_ioni), 4) ' C'])
