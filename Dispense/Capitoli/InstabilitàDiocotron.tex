@@ -51,3 +51,59 @@ rimane finita.
 
 \section{Teoria perturbativa lineare}
 
+Per investigare le proprietà del set di equazioni introdotto nella sezione precedente, lavoriamo con piccole perturbazioni che 
+rompano la simmetria azimutale: supponiamo di introdurre delle eccitazioni che presentano una dipendenza dalla coordinata angolare 
+$\theta$ in modo tale da avere una densità ed un potenziale elettrostatico pari a 
+\begin{align}
+    & n\left(r,\,\theta,\,t\right)\,=\,n_0\left(r\right)\,+\,n_1\left(r,\,\theta,\,t\right)\,=\,n_0\left(r\right)\,+\,\sum_{l\,=\,-\infty}^{+\infty} n_1^l\left(r\right)\exp{\left(il\theta\,-\,i\omega_l t\right)}, \\
+    & \Phi\left(r,\,\theta,\,t\right)\,=\,\Phi_0\left(r\right)\,+\,\Phi_1\left(r,\,\theta,\,t\right)\,=\,\Phi_0\left(r\right)\,+\,\sum_{l\,=\,-\infty}^{+\infty} \Phi_1^l\left(r\right)\exp{\left(il\theta\,-\,i\omega_l t\right)},
+\end{align}
+dove il parametro $l$ è il numero che descrive il modo azimutale della perturbazione. Andando a sostituire la densità $n\left(r,\,\theta,\,t\right)$ 
+nell'equazione di continuità possiamo compiere il primo passo per la determinazione delle autofrequenze dei modi di diocotron e delle autofunzioni: dato 
+che vogliamo effettuare un'analisi lineare trascuriamo tutti i termini di ordine superiore nella perturbazione. Considerando i singoli 
+termini abbiamo che
+\begin{align}
+    & \frac{\partial \Phi}{\partial \theta}\frac{\partial n}{\partial r}\,=\,-i\frac{\partial}{\partial r}\left[n_0\left(r\right)\right]\sum_{l\,=\,-\infty}^{+\infty}l\Phi_1^l\left(r\right)\exp{\left(il\theta\,-\,i\omega_l t\right)}\\
+    & \frac{\partial \Phi}{\partial r}\frac{\partial n}{\partial \theta}\,=\,i\frac{\partial}{\partial r}\left[\Phi_0\left(r\right)\right]\sum_{l\,=\,-\infty}^{+\infty}ln_1^l\left(r\right)\exp{\left(il\theta\,-\,i\omega_l t\right)}\\
+    & \frac{\partial n}{\partial t}\,=\,-i\sum_{l\,=\,-\infty}^{+\infty} \omega_l n_1^l\left(r\right)\exp{\left(il\theta\,-\,i\omega_l t\right)}
+\end{align}
+Introducendo quanto trovato nell'equazione di continuità e considerando l'evoluzione di uno specifico modo di diocotron abbiamo che
+\begin{equation}
+    n_1^l\left(r\right)\left\{\frac{cl}{B_0 r}\left[\frac{1}{c}\right]\frac{\partial}{\partial r}\left[\Phi_0\left(r\right)\right]\,-\,\omega_l\right\}\,=\,\frac{cl}{B_0r}\left[\frac{1}{c}\right]\Phi_1^l\left(r\right)\frac{\partial}{\partial r}\left[n_0\left(r\right)\right] 
+    \label{equation: continuity_diocotronmode}
+\end{equation}
+Effettuiamo la stessa analisi con l'equazione di Poisson: vogliamo introdurre le perturbazioni non-assisimmetriche in un contesto di 
+analisi perturbativa lineare. Consideriamo anche in questo caso i singoli termini, ottenendo che 
+\begin{align}
+    & \frac{\partial^2}{\partial \theta^2}\left[\Phi\left(r,\,\theta,\,t\right)\right]\,=\,-\sum_{l\,=\,-\infty}^{+\infty} l^2 \Phi_1^l\left(r\right)\exp{\left(il\theta\,-\,i\omega_l t\right)}\\
+    & \frac{1}{r}\frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi\left(r,\,\theta,\,t\right)\right]\right\}\,=\,\frac{1}{r}A\left(r,\,\theta,\,t\right)\,+\,B\left(r,\,\theta,\,t\right)
+\end{align}
+dove
+\begin{align}
+    & A\left(r,\,\theta,\,t\right)\,=\,\frac{\partial}{\partial r}\left[\Phi_0\left(r\right)\right]\,+\,\sum_{l\,=\,-\infty}^{+\infty}\frac{\partial}{\partial r}\left[\Phi_1^l\left(r\right)\right]\exp{\left(il\theta\,-\,i\omega_l t\right)} \\
+    & B\left(r,\,\theta,\,t\right)\,=\,\frac{\partial^2}{\partial r^2}\left[\Phi_0\left(r\right)\right]\,+\,\sum_{l\,=\,-\infty}^{+\infty}\frac{\partial ^2}{\partial r^2}\left[\Phi_1^2\left(r\right)\right]\exp{\left(il\theta\,-\,i\omega_l t\right)}
+\end{align}
+Notiamo ora che possiamo distinguere due equazioni, una per i termini di grado zero che è l'equazione di Poisson che abbiamo già
+utilizzato in precedenza ed una seconda per i termini di grado uno, infatti si ha che:
+\begin{equation}
+    \frac{1}{r}\frac{\partial}{\partial r}\left[\Phi_0\left(r\right)\right]\,+\,\frac{\partial^2}{\partial r^2}\left[\Phi_0\left(r\right)\right]\,=\,4\pi \left[\frac{1}{4\pi\varepsilon_0}\right] en_0\left(r\right)
+    \label{equation: Poisson_termini0}
+\end{equation}
+\begin{equation}
+    \frac{1}{r}\frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi_1^l\left(r,\,\theta,\,t\right)\right]\right\}\,-\,l^2\Phi_1^l\left(r\right)\,=\,4\pi \left[\frac{1}{4\pi\varepsilon_0}\right] en_1^l\left(r\right)
+    \label{equation: Poisson_termini1}
+\end{equation}
+Possiamo riscrivere il risultato appena ottenuto per le perturbazioni di primo ordine al potenziale riconoscendo la presenza in \eqref{equation: continuity_diocotronmode} 
+di frequenze caratteristiche dei fenomeni di plasma quali:
+\begin{align}
+    & \Omega\,=\,\frac{eB_0}{mc} \qquad \qquad \qquad \qquad \qquad \,\,\,\,\,\,\,\, \text{frequenza di ciclotrone}\\
+    & \omega_p^2\left(r\right)\,=\,4\pi\left[\frac{1}{4\pi\varepsilon_0}\right]\frac{n_0\left(r\right)}{m} \, \qquad \qquad \text{frequenza di plasma} \\
+    & \omega^-\left(r\right)\,=\,\frac{c}{rB_0}\left[\frac{1}{c}\right]\frac{\partial}{\partial r}\left[\Phi_0\left(r\right)\right] \qquad \,\,\,\, \text{frequenza di rotazione}
+\end{align}
+e sostituendo $n_1\left(r\right)$ nell'equazione di Poisson per i termini di primo ordine.
+Così facendo troviamo il problema agli autovalori, che può essere utilizzato per determinare le autofrequenze $\omega_l$ e di conseguenza 
+le autofunzioni $\Phi_l\left(r\right)$:
+\begin{equation}
+    \frac{1}{r}\frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi_l\left(r\right)\right]\right\}\,-\,\left(\frac{l}{r}\right)^2\Phi_1^l\left(r\right)\,=\,-\frac{l}{\Omega r}\frac{\partial}{\partial r}\left[\omega_p^2\left(r\right)\right]\frac{\Phi_1^l\left(r\right)}{\omega_l\,-\,l\omega^-\left(r\right)}
+    \label{equation: problema_autovalori}
+\end{equation}
