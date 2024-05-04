@@ -1,5 +1,5 @@
 %-------------------------------------------------------------------------%
-%                Studio delle immagini per la calibrazione                %
+%                Pulizia delle immagini per la calibrazione               %
 %-------------------------------------------------------------------------%
 
 close all
