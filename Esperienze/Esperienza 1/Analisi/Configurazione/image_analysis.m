@@ -23,29 +23,45 @@ end
 % infine sottrarre l'ulteriore rumore presente nella trappola legato
 % principalmente a riflessioni sulle pareti cilindriche. Vengono create le
 % immagini pulite e salvate in una cartella chiamata PlasmaPulite
-function pulizia_immagine_3step(path, n_img, path_rum, n_rum, r_trap, r_plasma)
+function pulizia_calibrazione(path, name, n_img, path_rum, n_rum, r_trap, r_plasma)
     meannoise = rumore_medio(path_rum, n_rum);
     for i=1:n_img
         % Pulisco le immagini togliendo il rumore medio
-        pippo = [path '/plasma' sprintf('%03i', i) '.tif'];
-        M = imread(pippo); M = double(M); 
+        pippo = [path '/' name sprintf('%03i', i) '.tif'];
+        M = imread(pippo); M = double(M); [col row] = size(M); 
         M = M - meannoise; M(M<0) = 0;
+        
 
         % Pongo a zero i pixel fuori dalla trappola pari a zero
-        [col row] = size(M); 
-        [X, Y] = meshgrid(linspace(-col/2, col/2, col), linspace(-row/2+10, row/2+10, row));
-        M((X.*X + Y.*Y)>r_trap^2) = 0;
-
+        [X, Y] = meshgrid(linspace(-col/2, col/2, col), linspace(-row/2 + 10, row/2 + 10, row));
+        M((X.*X + Y.*Y)' > 419^2) = 0;
+ 
+        
         % Faccio una media sui pixel che si trovano nella trappola, ma non
         % contengono alcun plasma in modo tale da poter sottrarre del
         % rumore aggiuntivo dovuto a riflessioni multiple sulle pareti
         % della trappola
-        rumore_rim = mean(mean(M((X.*X + Y.*Y)<r_trap^2 & (X.*X + Y.*Y)>r_plasma^2)));
-        M((X.*X + Y.*Y)<r_trap^2 & (X.*X + Y.*Y)>r_plasma^2) = M((X.*X + Y.*Y)<r_trap^2 & (X.*X + Y.*Y)>r_plasma^2) - rumore_rim;
+        rumore_rim = mean(mean(M(((X.*X + Y.*Y)'<r_trap^2) & ((X.*X + Y.*Y)'>r_plasma^2))));
+        M(((X.*X + Y.*Y)'<r_trap^2) & ((X.*X + Y.*Y)'>r_plasma^2)) = M(((X.*X + Y.*Y)'<r_trap^2) & ((X.*X + Y.*Y)'>r_plasma^2)) - rumore_rim;
         M(M<0) = 0;
-
+        
         M = uint16(M); pippo = [path '/PlasmaPulite/plasma' sprintf('%03i', i) '.tif'];
-        imwrite(M, pippo); 
+        imwrite(M, pippo);
+ 
+    end
+end
+
+
+% Funzione per il calcolo dell'intensità totale delle immagini: ciò che
+% facciamo è sommare i valori dei vari pixel. Questa funzione restituisce
+% un vettore di intensità, di dimensione pari al campione che stiamo
+% prendendo in considerazione
+function img_int = intensita_immagine(path, name, n)
+    img_int = zeros(1, n);
+    for i=1:n
+        appo = [path '/' name sprintf('%03i', i) '.tif'];
+        M = imread(appo); M = double(M);
+        img_int(i) = sum(sum(M));
     end
 end
 
@@ -94,3 +110,17 @@ l_pixel = 90/838.0;
                  %     PULIZIA IMMAGINI    %
                  %-------------------------%
 
+path_rum = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/dark';
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/calibrazione';
+pulizia_calibrazione(path,'calibplasma', 32, path_rum, 80, 419, 260);
+int_calib = intensita_immagine(path, 'PlasmaPulite/plasma', 32);
+
+
+% Esempio di un'immagine pulita
+figure(1);
+M = imread([path '/PlasmaPulite/plasma019.tif']); 
+[row col] = size(M); M = double(M); [row col] = size(M); 
+[X, Y] = meshgrid(linspace(-col/2, col/2, col), linspace(-row/2+10, row/2+10, row));
+colormap('jet'); surface(X, Y, M,'FaceAlpha',1,'LineStyle','none','FaceColor','flat');
+title('Immagine di plasma pulita'); axis([ -col/2 col/2 -row/2 row/2]); daspect([1 1 1]); 
+colorbar; xlabel("Colonne"); ylabel("Righe");
