@@ -2,6 +2,10 @@
 %                Studio delle immagini per la calibrazione                %
 %-------------------------------------------------------------------------%
 
+close all
+clear all
+clc
+
 % Funzione per calcolare il rumore medio di natura elettronica che è
 % presente nelle immagini scattate dalla camera. Forniamo come input il
 % path alla cartella ed il numero di immagini che dobbiamo andare ad
