@@ -38,7 +38,7 @@ function pulizia_calibrazione(path, name, n_img, path_rum, n_rum, r_trap, r_plas
 
         % Pongo a zero i pixel fuori dalla trappola pari a zero
         [X, Y] = meshgrid(linspace(-col/2, col/2, col), linspace(-row/2 + 10, row/2 + 10, row));
-        M((X.*X + Y.*Y)' > 419^2) = 0;
+        M((X.*X + Y.*Y)' > r_trap^2) = 0;
  
         
         % Faccio una media sui pixel che si trovano nella trappola, ma non
