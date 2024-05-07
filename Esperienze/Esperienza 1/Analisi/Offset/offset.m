@@ -2,6 +2,10 @@
 %               Grafico i diversi offset al passare del tempo             %
 %-------------------------------------------------------------------------%
 
+close all
+clear
+clc
+
 %---------------------------------------------------------%
 %    Offset in funzione del tempo di evoluzione libera    %
 %---------------------------------------------------------%
