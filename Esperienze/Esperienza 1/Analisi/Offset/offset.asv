@@ -19,10 +19,27 @@ for i=1:9
     x_centro = filescan {1,1}; y_centro = filescan {1,2}; offset_serie = filescan {1,3};
 
     off_opt(i) = mean(offset_serie);
+    fclose(data);
 end
+
+
+base = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Analisi/Offset/Segnali/serie';
+off_fou = zeros(1, 9);
+% Calcolo quale sia l'offset medio per ciascuna delle prese dati - ottico
+for i=1:9
+    % Apro il file, carico i vettori e riscalo opportunamente
+    data = fopen([base num2str(i) '.txt'], 'rt');
+    N = 1; filescan = textscan(data,'%f %f %f','HeaderLines',N);
+    x_centro = filescan {1,1}; y_centro = filescan {1,2}; offset_serie = filescan {1,3};
+
+    off_fou(i) = mean(offset_serie);
+end
+
 
 figure (1);
 l_pixel = 90/838.0; t = [200, 300, 250, 150, 100, 125, 175, 225, 275];
-plot(t', off_opt' * l_pixel, 'r.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on; grid on;
+plot(t', off_opt' * l_pixel, 'r.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on;
+plot(t', off_fou' * l_pixel, 'g.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on; grid on;
+legend(['Ottico' , 'Fourier'])
 title('Offset: dipendenza da evoluzione libera'); 
 xlabel('Tempo (ms)'); ylabel('Offset (mm)');

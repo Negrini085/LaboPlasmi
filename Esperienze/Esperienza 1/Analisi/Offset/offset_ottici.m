@@ -7,7 +7,7 @@
 % immagini e dei segnali scelti (saranno 9 contenitori, di cui 8 commentati
 % in fase di esecuzione -> dal primo all'ultimo ho corrispondenza con le
 % serie dalla prima all'ultima)
-%sign = [2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 37, 39, 40, 41, 43, 45, 46, 47, 49];
+sign = [2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 37, 39, 40, 41, 43, 45, 46, 47, 49];
 %sign = [2, 3, 4, 6, 8, 9, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 47, 48, 49, 50];
 %sign = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 42, 43, 45, 46, 47, 48, 49, 50, 51, 52, 53, 56, 57, 58, 59, 60, 61, 62];
 %sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -15,12 +15,12 @@
 %sign = [1, 2, 3, 4, 6, 7, 8, 10];
 %sign = [1, 2, 4, 5, 6, 7, 8, 9, 10];
 %sign = [1, 3, 4, 5, 6, 8, 9, 10];
-sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+%sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 % Riporto i nove possibili cammini che possono essere utilizzati durante
 % l'esecuzione di questo matlab script, in modo tale da non dover copiarlo
 % da terminale ogni volta
-%path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series1_200ms/plasma';
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series1_200ms/plasma';
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series2_300ms/plasma';
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series3_250ms/plasma';
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series4_150ms/plasma';
@@ -28,7 +28,7 @@ sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series6_125ms/plasma';
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series7_175ms/plasma';
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series8_225ms/plasma';
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series9_275ms/plasma';
+%path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series9_275ms/plasma';
 
 
 % Definisco ora la procedura per analizzare i file di immagini: quello che

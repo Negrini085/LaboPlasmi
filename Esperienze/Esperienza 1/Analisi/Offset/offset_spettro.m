@@ -61,7 +61,7 @@ function fourierOffset(path, nome_serie, sign, liminf, limsup)
         frequenze = 0:1/(M * dt):1/(2*dt); amp = sqrt(power(1:length(frequenze)));
         [A1, ind1] = max(amp);
         [A3, ind3] = max(amp(int32(7 * ind1/3) : int32(10 * ind1/3)));
-        d1 = (double(A3)/A1)^1/2;
+        d1 = (double(A3)/A1)^(0.5);
 
         % Printo dati a file
         fprintf(new_data,  '%s \n', [num2str(frequenze(ind1), 3) '    ' num2str(frequenze(ind3 + int32(7 * ind1/3)), 3) '    ' num2str(d1)]);
