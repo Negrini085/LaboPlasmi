@@ -104,6 +104,77 @@ e sostituendo $n_1\left(r\right)$ nell'equazione di Poisson per i termini di pri
 Così facendo troviamo il problema agli autovalori, che può essere utilizzato per determinare le autofrequenze $\omega_l$ e di conseguenza 
 le autofunzioni $\Phi_l\left(r\right)$:
 \begin{equation}
-    \frac{1}{r}\frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi_l\left(r\right)\right]\right\}\,-\,\left(\frac{l}{r}\right)^2\Phi_1^l\left(r\right)\,=\,-\frac{l}{\Omega r}\frac{\partial}{\partial r}\left[\omega_p^2\left(r\right)\right]\frac{\Phi_1^l\left(r\right)}{\omega_l\,-\,l\omega^-\left(r\right)}
+    \frac{1}{r}\frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi^l_1\left(r\right)\right]\right\}\,-\,\left(\frac{l}{r}\right)^2\Phi_1^l\left(r\right)\,=\,-\frac{l}{\Omega r}\frac{\partial}{\partial r}\left[\omega_p^2\left(r\right)\right]\frac{\Phi_1^l\left(r\right)}{\omega_l\,-\,l\omega^-\left(r\right)}
     \label{equation: problema_autovalori}
+\end{equation}
+
+\subsection{Profilo di densità a gradino}
+
+Supponiamo che il profilo di densità $\rho\left(r,\,\theta\right)\,=\,\rho\left(\theta\right)$ sia quello a gradino introdotto
+in precedenza. Il salto avviene per la posizione radiale $r\,=\,R_p$ ed il raggio della regione confinante della trappola 
+è $r\,=\,R_w$:
+\begin{equation}
+    n_0\left(r\right)\,=\,
+    \begin{cases}
+        n_0     \qquad        r \leq R_p \\
+        0       \,\,\, \qquad        R_p < r \leq R_w 
+    \end{cases}
+\end{equation}
+Vogliamo trovare le autofrequenze ed i modi normali per un sistema siffatto: iniziamo lavorando con l'equazione di Poisson che abbiamo
+determinato in precedenza. Raccogliamo la frequenza di ciclotrone in modo tale da ottenere che
+\begin{equation}
+    \frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi^l_1\left(r\right)\right]\right\}\,-\,\frac{l^2}{r}\Phi_1^l\left(r\right)\,=\,-2l \frac{\partial}{\partial r}\left[\frac{\omega_p^2\left(r\right)}{2\Omega}\right]\frac{\Phi_1^l\left(r\right)}{\omega_l\,-\,l\omega^-\left(r\right)}
+    \label{equation: diffPhi_rhoGrad}
+\end{equation}
+La derivata del rapporto fra la frequenza di plasma elevata al quadarto ed il doppio della frequenza di ciclotrone è diversa da zero 
+solamente nella discontinuita posta ad $r\,=\,R_p$. Detto $\omega_D$, oppure frequenza angolare di Diocotron, il rapporto precedentemente
+citato, si deve avere che:
+\begin{equation}
+    \frac{d \omega_D}{dr}\,=\,-\omega_D\delta\left(r\,-\,R_p\right)
+    \label{equation: omegaD_discontinuità}
+\end{equation}
+Quando la posizione radiale con coincide con il raggio di plasma, il secondo membro risulta essere identicamente nullo. Le soluzioni da
+ricercare per una equazione differenziale di questo genere sono del tipo $r^{\lambda}$: sostituendo un tale ansaltz nell'equazione
+\begin{equation}
+    \frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi^l_1\left(r\right)\right]\right\}\,-\,\frac{l^2}{r}\Phi_1^l\left(r\right)\,=\,0
+    \label{equation:autoF_noRp}
+\end{equation}
+si può ricavare come $\lambda\,=\,\pm l$. Le condizioni che consentono di univocamente determinare la soluzione sono la non-divergenza 
+della stessa quando il raggio è identicamente nullo, l'annullamento della perturbazione di potenziale sulla parete della trappola ed 
+il collegamento con continuita della soluzione fra le due regioni prese in considerazione. Imponendo le prime due ci riportiamo ad un
+andamento del tipo
+\begin{equation}
+    \Phi_1^l\left(r\right)\,=\,
+    \begin{cases}
+        A\left(r/R_w\right)^l \qquad \qquad \qquad \qquad \qquad r\,\leq\,R_p\\
+        C\left[\left(r/Rw\right)^l\,-\,\left(r/R_w\right)^{-l}\right] \qquad R_p\,<\,r\,\leq\,R_w
+    \end{cases}
+    \label{equation: sol_modo1Dioc_passo1}
+\end{equation}
+Consideriamo ora quanto accade all'interfaccia fra le due regioni dove abbiamo calcolato le soluzioni. Richiediamo innanzitutto che
+il potenziale sia continuo al'interfaccia; questo si traduce in
+\begin{equation}
+    A\left(\frac{R_p}{R_w}\right)^l\,=\,C\left[\left(\frac{R_p}{R_w}\right)^l\,-\,\left(\frac{R_p}{R_w}\right)^{-l}\right]
+\end{equation}
+Il campo presenta tuttavia una discontinuità: questo è dovuto alla presenza della delta in corrispondenza di $r\,=\,R_p$. Quantifichiamo 
+quale sia il contributo della delta nella regione di cambio di densità integrando in un intervallo $\varepsilon$ piccolo a piacere la
+relazione \eqref{equation: diffPhi_rhoGrad}. Abbiamo quindi che 
+\begin{equation}
+    \int_{R_p-\varepsilon}^{R_P+\varepsilon} \left[    \frac{\partial}{\partial r}\left\{r\frac{\partial}{\partial r}\left[\Phi^l_1\left(r\right)\right]\right\}\,-\,\frac{l^2}{r}\Phi_1^l\left(r\right)\right] dr\,=\,-\int_{R_p-\varepsilon}^{R_p+\varepsilon} \left[2l\frac{\Phi_1^l}{\omega_l\,-l\omega_D}\frac{d\omega_D}{dr}\right] dr
+    \label{equation: qunatif_discE}
+\end{equation}
+Le equazioni \eqref{equation: sol_modo1Dioc_passo1} ed \eqref{equation: qunatif_discE} costituiscono un sistema lineare di rapida 
+risoluzione. Le autofrequenze e le autofunzioni in analisi lineare per il semplice profilo di densità preso in considerazione 
+risultano essere
+\begin{equation}
+    \omega_l\,=\,\omega_D\left[l\,-\,1\,+\,\left(\frac{R_p}{R_w}\right)^2\right]
+    \label{equation: autoFreq_lineare}
+\end{equation}
+\begin{equation}
+    \Phi^l\,=\,
+    \begin{cases}
+        A\left(r/R_w\right)^l  \qquad \qquad \qquad \qquad \qquad \quad r\,\leq\,R_p \\
+        A\left(r/R_w\right)^l \frac{\left(r/R_w\right)^l\,-\,\left(r/R_w\right)^{-l}}{\left(R_p/R_w\right)^l\,-\,\left(R_p/R_w\right)^{-l}} \qquad  R_p\,<\,r\,\leq\,R_w
+    \end{cases}
+    \label{equation: autoFunc_lineare}
 \end{equation}
