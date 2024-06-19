@@ -128,3 +128,5 @@ M = imread([path '/PlasmaPulite/plasma019.tif']);
 colormap('jet'); surface(X, Y, M,'FaceAlpha',1,'LineStyle','none','FaceColor','flat');
 title('Immagine di plasma pulita'); axis([ -col/2 col/2 -row/2 row/2]); daspect([1 1 1]); 
 colorbar; xlabel("Colonne"); ylabel("Righe");
+
+fprintf(['Intesità media delle immagini di calibrazione: ' num2str(mean(int_calib))])
