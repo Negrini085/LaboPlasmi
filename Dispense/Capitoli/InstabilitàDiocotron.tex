@@ -178,3 +178,49 @@ risultano essere
     \end{cases}
     \label{equation: autoFunc_lineare}
 \end{equation}
+
+\subsection{Plasma fuori asse}
+
+Supponiamo ora di lavorare con una colonna di plasma caratterizzata da $R_p\,\ll\,1$ (al limite filiforme) che si trova posta 
+sull'asse x ad una certa distanza $d$ dall'asse della trappola. Lavorando con il metodo della carica immagine in modo tale da
+rispettare la condizione di potenziale nullo sulle pareti della trappola, vogliamo valutare quali siano le correzioni alle 
+auto-frequenze precedentemente determinate. In una certa posizione $\left(r,\,\theta\right)$ il potenziale dovuto alla presenza 
+di carica "reale" e carica immagine risulta pari a:
+\begin{equation}
+    \Phi_{tot}\left(r,\,\theta\right)\,=\,-\,2\lambda\log{\left(\frac{\left|\vec{r}\,-\,\vec{r}_\lambda\right|}{R_w}\right)}\,-\,2\lambda'\log{\left(\frac{\left|\vec{r}\,-\,\vec{r}_{\lambda'}\right|}{R_w}\right)\,+\,2c}
+    \label{equation: potentialOffset}
+\end{equation}
+Nel limite di posizione radiale che tende ad infinito il potenziale sopra riportato presenta un andamento del tipo
+\begin{equation}
+    \Phi_ {tot}\left(r,\,\theta\right)\,\simeq\,-\left(\lambda\,+\,\lambda'\right)\log{\left(\frac{r}{R_w}\right)}\,+\,2c
+    \label{equation: potentialOffset_rInf}
+\end{equation}
+Dato che vogliamo avere un potenziale costante ad infinito per far si che il campo sia identicamente nullo, è necessario che 
+$\lambda\,=\,-\lambda'$. La condizione per aver potenziale nullo sulla parete contenitiva della trappola si traduce in
+\begin{equation}
+    \frac{R_w^2\,+\,d^2\,-\,2R_wd\cos{\theta}}{R_w^2\,+\,x^2\,-\,2R_wx\cos{\theta}}\,=\,\exp{\left(\frac{2c}{\lambda}\right)\,=\,\delta^2}
+    \label{equation: cond_PotNullo}
+\end{equation}
+Dato che la relazione che abbiamo trovato deve valere per ogni possibile posizione angolare si deve imporre che $\delta x^2\,=\,d$ per 
+annullare il termine dipendente dal coseno. La carica immagine deve trovarsi in $r\,=\,R_w^2/d$.
+
+Per determinare quali siano le correzioni alle auto-frequenze precedentemente determinate , continuiamo a sfruttare la carica immagine 
+ed in particolare consideriamo quali siano le forze attrattive che sono presenti fra i due fili di carica. Nelle condizioni in cui ci siamo 
+posti, il campo elettrico in $d$ risulta essere pari a 
+\begin{equation}
+    \vec{E}_i\,=\,2\lambda\frac{1}{\left(R_w^2/d\right)\,-\,d}\hat{e}_r
+    \label{equation: campo_offset}
+\end{equation}
+Valutando la velocità di rotazione, possiamo poi sfruttare che $\omega_1^{nl}\,=\,v_\theta/r$ in modo tale da determinare la frequenza 
+angolare non lineare, che ora presenta una dipendenza sulla coordinata radiale a cui si trova la colonna di plasma
+\begin{equation}
+    \omega_1^{nl}\,=\,-\frac{2c\lambda}{BR_w^2}\left[\frac{1}{4\pi\varepsilon_0c}\right]\frac{1}{1\,-\,\left(r/R_w\right)^2}
+    \label{equation: freqnl}
+\end{equation}
+La casistica con cui abbiamo lavorato è altamente irrealistica, poichè solitamente i plasmi che vengono trattati in laboratorio hanno 
+un estensione radiale non trascurabile rispetto a quella della trappola. Per tener conto della sua dimensionalità finita è possibile 
+aggiungere un fattore correttivo alla reazione precedente, in modo tale che la frequenza non lineare risulti essere 
+\begin{equation}
+    \omega_1^{nl}\,=\,\omega_D\left(\frac{R_p}{R_w}\right)^2\frac{1}{1\,-\,\left(r/R_w\right)^2}
+    \label{equation: freqnl_dimFinita}
+\end{equation}
