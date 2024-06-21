@@ -44,6 +44,7 @@ function freqMax = testIntervalFFT(t, segnale)
     ampiezze = sqrt(power(1:length(frequenze)));
 
     [maxSign, ind] = max(ampiezze);
+    [max3, ind3] = max(ampiezze(int32(44 * ind/15) : int32(46 * ind/15)));
 
     % Primo subplot --> grafico il segnale considerato
     figure; subplot(2, 1, 1);
@@ -56,6 +57,7 @@ function freqMax = testIntervalFFT(t, segnale)
     title('Analisi FFT'); xlabel('Frequenze (Hz)'); ylabel('Ampiezza');
 
     freqMax = frequenze(ind);
+    disp(frequenze(int32(44 *ind/15 + ind3)))
 end
 
 
@@ -73,7 +75,7 @@ end
 
 % Parametri per lettura del segnale
 udmv = 0.001; udmt = 0.001;
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/series6_125ms/segnale06.txt';
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/series5_100ms/segnale06.txt';
 
 % Apertura del canale di comunicazione con il file in questione
 %tfour = 0:1e-6:1; w1 = 8e3; w2 = 12e3;
@@ -83,7 +85,7 @@ filescan = textscan(data,'%f %f','HeaderLines',N);
 t = filescan {1,1}; v = filescan {1,2};
 
 % Testo il segnale preso in considerazione
-tmin = 99.9; tmax = 124.9;
+tmin = 79.9; tmax = 99.9;
 tfour = t((t>tmin) & (t<tmax));
 vfour = v((t>tmin) & (t<tmax));
 tfour = tfour * udmt; vfour = vfour * udmv;
