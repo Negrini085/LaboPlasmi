@@ -7,28 +7,6 @@ clear all
 clc
 
 
-% Funzione che consente di studiare quale sia lo smoothing ottimale da
-% applicare: forniamo come parametri il cammino per giungere al file di
-% nostro interesse ed il numero minimo di punti sui quali provare a fare lo
-% Smoothig. Nella funzione è presente un ciclo che viene eseguito cinque
-% volte 
-function studioSmoothing(path, n_min)
-    data = fopen(path, 'rt');
-    N = 3; filescan = textscan(data,'%f %f','HeaderLines',N);
-    t = filescan {1,1}; v = filescan {1,2};
-    
-    figure;
-    plot(t, v, 'k-'); hold on; grid on;
-
-    for m=1:5
-        Navg = m * n_min + 1;      % Scelgo a runtime il numero di punti da considerare per lo smooth
-        plot(t, smooth(v, Navg)); hold on; grid on;
-    end
-    legend('Data', ['N = ' num2str(n_min)], ['N = ' num2str(2*n_min)], ['N = ' num2str(3*n_min)],['N = ' num2str(4*n_min)] ,['N = ' num2str(5*n_min)])
-    title('Studio smoothing')
-end
-
-
 
 % Funzione che consente di determinare quale sia la carica della scarica
 % presa in analisi: il segnale deve essere fornito in modulo, poichè la
@@ -85,8 +63,6 @@ function car = carica_segnale(path, nome, n_sig, res, t_udm, v_udm, Navg, logic)
 end
 
 
-
-
                 %------------------------------------%
                 %       STUDIO SCARICA IONICA        %
                 %------------------------------------%
@@ -96,7 +72,7 @@ end
 % consentono di lisciare il segnale.
 Navg = 100; nome = 'idischarge_';
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/calibration/idischarge';
-car_ioni = carica_segnale(path, nome, 20, 1e6, 0.001, 0.001, 100, 0);
+car_ioni = carica_segnale(path, nome, 20, 1e6, 0.001, 0.001, Navg, 0);
 disp(['La carica media della popolazione ionica è pari a: (' num2str(mean(car_ioni), 4) ' +/- ' num2str(std(car_ioni), 4) ') C'])
 
 
@@ -134,4 +110,5 @@ n = 32;
 
 inte = intensita_immagine(path, name, n);
 fact = (mean(car_ele) + mean(car_ioni))/mean(inte);
+disp(["L'intensità media delle immagini di plasma pulite è pari a: " num2str(mean(inte))])
 disp(['Il fattore di conversione è pari a: ' num2str(fact)])

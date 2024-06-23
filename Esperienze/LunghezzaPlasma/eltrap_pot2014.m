@@ -24,6 +24,7 @@ v(10)=str2num(answer{10});
 v(11)=str2num(answer{11});
 v(12)=str2num(answer{12});
 
+
 % enter radial position for V calculation and plot color
 prompt1={'Radial position','Plot color'};
 default1={'0.000','b'};

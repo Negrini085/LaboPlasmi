@@ -136,7 +136,8 @@ end
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/calibrazione/PlasmaPulite/plasma019.tif';
 nr = 419; nth = floor(0.785 * nr);
 im_plasma = double(imread(path)); 
-im_polare = cambio_coord(im_plasma, 502, 602, 419); 
+laplace = zeros(size(im_plasma));
+im_polare = cambio_coord(laplace, 502, 602, 419); 
 im_polare(nth+1,:) = im_polare(1,:); 
 
 % Determino quale sia la densità superficiale del plasma, andando
