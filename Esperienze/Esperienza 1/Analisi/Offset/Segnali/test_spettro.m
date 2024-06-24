@@ -53,7 +53,7 @@ function freqMax = testIntervalFFT(t, segnale)
 
     % Secondo subplot --> grafico in scala log-log la FFT Analysis
     subplot(2, 1, 2);
-    loglog(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
+    semilogx(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
     title('Analisi FFT'); xlabel('Frequenze (Hz)'); ylabel('Ampiezza');
 
     freqMax = frequenze(ind);
@@ -78,17 +78,17 @@ udmv = 0.001; udmt = 0.001;
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/series5_100ms/segnale06.txt';
 
 % Apertura del canale di comunicazione con il file in questione
-%tfour = 0:1e-6:1; w1 = 8e3; w2 = 12e3;
-%vfour = sin(2*pi*w1*tfour) + 0.5*sin(2*pi*w2*tfour);
-data = fopen(path, 'rt'); N = 3; 
-filescan = textscan(data,'%f %f','HeaderLines',N);
-t = filescan {1,1}; v = filescan {1,2};
+tfour = 0:1e-6:1; w1 = 8e3; w2 = 12e3; w3 = 20e3;
+vfour = sin(2*pi*w1*tfour) + 0.5*sin(2*pi*w2*tfour) + 0.3*sin(2*pi*w3*tfour);
+%data = fopen(path, 'rt'); N = 3; 
+%filescan = textscan(data,'%f %f','HeaderLines',N);
+%t = filescan {1,1}; v = filescan {1,2};
 
 % Testo il segnale preso in considerazione
-tmin = 79.9; tmax = 99.9;
-tfour = t((t>tmin) & (t<tmax));
-vfour = v((t>tmin) & (t<tmax));
-tfour = tfour * udmt; vfour = vfour * udmv;
+%tmin = 79.9; tmax = 99.9;
+%tfour = t((t>tmin) & (t<tmax));
+%vfour = v((t>tmin) & (t<tmax));
+%tfour = tfour * udmt; vfour = vfour * udmv;
 
 
 fMax = testIntervalFFT(tfour, vfour);

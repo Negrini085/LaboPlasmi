@@ -39,6 +39,7 @@ nr = 419; nth = floor(0.785 * nr);
 im_plasma = imread(path); 
 im_polare = cambio_coord(im_plasma, 502, 602, 419); 
 im_polare(nth+1,:) = im_polare(1,:); 
+size(im_polare)
 
 % Faccio il plot dell'immagine appena prodotta in coordinate polari
 figure(1);
