@@ -7,7 +7,6 @@ clear all
 clc
 
 function polar = cambio_coord(image, xr, yr, radius)
-    
     % Numero celle per la griglia polare
     nr = radius; nt = floor(0.785 * radius);
     
@@ -37,14 +36,13 @@ end
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/calibrazione/PlasmaPulite/plasma019.tif';
 nr = 419; nth = floor(0.785 * nr);
 im_plasma = imread(path); 
-im_polare = cambio_coord(im_plasma, 502, 602, 419); 
+im_polare = cambio_coord(im_plasma, 502, 602, 419-1); 
 im_polare(nth+1,:) = im_polare(1,:); 
-size(im_polare)
 
 % Faccio il plot dell'immagine appena prodotta in coordinate polari
 figure(1);
 
-r = linspace(0,1,nr+1);
+r = linspace(0,1,nr);
 th =linspace(0,2*pi,nth+1);
 
 [R,Th] = meshgrid(r,th);

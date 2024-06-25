@@ -6,7 +6,11 @@ close all
 clear all
 clc
 
-function result = thomas(matrix, known)
+%-------------------------------------------------------------------------%
+%        Funzione per risolvere un sistema tridiagonale trattando         %
+%                   la matrice nella sua interezza                        %
+%-------------------------------------------------------------------------%
+function result = thomasMat(matrix, known)
     dim = size(matrix);
     matrix = double(matrix); known = double(known);
 
@@ -37,6 +41,33 @@ function result = thomas(matrix, known)
 
 end
 
+
+%-------------------------------------------------------------------------%
+%        Funzione per risolvere un sistema tridiagonale trattando         %
+%                    le sole diagonali principali                         %
+%-------------------------------------------------------------------------%
+function res = thomasDiag(a, b, c, n)
+    if (length(a) ~= (length(b) - 1)) | (length(c) ~= (length(b)-1))
+        disp("Dimensioni delle diagonali errate: controllare come vengono passati gli argomenti");
+    end
+
+    for i=1:length(a)
+        fact = c(i)/b(i);
+        c(i) = 0; b(i+1) = b(i+1) - fact * a(i);
+        n(i+1) = n(i+1) - fact * n(i);
+    end
+    
+    res = zeros(length(b), 1);
+    res(length(b)) = n(length(b))/b(length(b));
+    for i=1:length(b)-1
+        res(length(b)-i) = (n(length(b)-i) - a(length(b)-i)*res(length(b)-i+1))/b(length(b)-i);
+    end
+end
+
+%-------------------------------------------------------------------------%
+%                           Test per thomasMat                            %
+%-------------------------------------------------------------------------%
+
 % Prima casistica per benchmark del metodo
 m = zeros(3);
 m(1, :) = [2, 1, 0];
@@ -44,7 +75,7 @@ m(2, :) = [1, 2, 3];
 m(3, :) = [0, 1, -1];
 
 noti = [0, 0, 1];
-thomas(m, noti)         % Funziona, daje roma daje
+thomasMat(m, noti)         % Funziona, daje roma daje
 
 
 % Seconda casistica per benchmark del metodo
@@ -54,4 +85,37 @@ a(2, :) = [1, 2, 3];
 a(3, :) = [0, 1, -1];
 
 notii = [1, -1, 1];
-thomas(a, notii)
+thomasMat(a, notii)
+
+
+% Terza casistica per benchmark del metodo
+b = zeros(4);
+b(1, :) = [1, -3, 0, 0];
+b(2, :) = [1, -1, 1, 0];
+b(3, :) = [0, 3, 1, 1];
+b(4, :) = [0, 0, 1, 2];
+
+notiii = [1, 2, 4, 0];
+thomasMat(b, notiii)
+
+
+%-------------------------------------------------------------------------%
+%                          Test per thomasDiag                            %
+%-------------------------------------------------------------------------%
+
+diag1 = [1, 3]; diagP = [2, 2, -1];
+diag2 = [1, 1]; known = [0, 0, 1];
+
+thomasDiag(diag1, diagP, diag2, known)
+
+
+diag1 = [1, 3]; diagP = [2, 2, -1];
+diag2 = [1, 1]; known = [1, -1, 1];
+
+thomasDiag(diag1, diagP, diag2, known)
+
+
+diag1 = [-3, 1, 1]; diagP = [1, -1, 1, 2];
+diag2 = [1, 3, 1]; known = [1, 2, 4, 0];
+
+thomasDiag(diag1, diagP, diag2, known)
