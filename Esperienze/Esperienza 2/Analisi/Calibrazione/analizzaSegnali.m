@@ -21,6 +21,12 @@ clc
 % La funzione in questione restituisce un vettore i cui elementi sono le
 % cariche degli n segnali presi in considerazione.
 function [car, cap] = carica_segnale(path, nome, n_sig, res, t_udm, v_udm, Navg, logic)
+
+    % File per contenere i dati elaborati
+    fout = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Analisi/Calibrazione/Risultati/scaricaEle.txt';
+    new_data = fopen(fout,'w');
+    fprintf(new_data, '%s \n', 'Numero segnale     Carica elettronica scarica');
+
     car = zeros(n_sig, 1); cap = zeros(n_sig, 1);
     for i=1:n_sig
 
@@ -56,6 +62,7 @@ function [car, cap] = carica_segnale(path, nome, n_sig, res, t_udm, v_udm, Navg,
 
         dt = t(35123) - t(35122);
         car(i) = sum(v_smooth(t>0)) * dt/res + mean(v_smooth(end-100:end)) * cap(i);
+        fprintf(new_data,  '%s \n', [num2str(i) '    ' num2str(car(i))]);
 
     end
 end
@@ -77,3 +84,4 @@ disp("Studio della carica del plasma: "); disp(' ')
 [car_ele, cap_sc] = carica_segnale(path, nome, 20, 1e6, 0.001, 1, 100, 1);
 disp(['     La carica media della popolazione elettronica è pari a: - (' num2str(mean(car_ele), 4) ' +/-' num2str(std(car_ele), 4) ') C'])
 disp(['     La capacità parassita media è pari a: - (' num2str(mean(cap_sc), 4) ' +/-' num2str(std(cap_sc), 4) ') C'])
+disp(' '); disp('I valori registrati nelle singole cariche si trovano in Risultati/scaricaEle.txt')

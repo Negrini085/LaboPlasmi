@@ -27,7 +27,7 @@ end
 % infine sottrarre l'ulteriore rumore presente nella trappola legato
 % principalmente a riflessioni sulle pareti cilindriche. Vengono create le
 % immagini pulite e salvate in una cartella chiamata PlasmaPulite
-function pulizia_calibrazione(path, name, n_img, path_rum, name_rum, n_rum, r_trap, r_plasma)
+function pulizia_calibrazione(path, imOut, name, n_img, path_rum, name_rum, n_rum, r_trap, r_plasma)
     meannoise = rumore_medio(path_rum, name_rum, n_rum);
     for i=1:n_img
         % Pulisco le immagini togliendo il rumore medio
@@ -49,7 +49,7 @@ function pulizia_calibrazione(path, name, n_img, path_rum, name_rum, n_rum, r_tr
         M(((X.*X + Y.*Y)'<r_trap^2) & ((X.*X + Y.*Y)'>r_plasma^2)) = M(((X.*X + Y.*Y)'<r_trap^2) & ((X.*X + Y.*Y)'>r_plasma^2)) - rumore_rim;
         M(M<0) = 0;
         
-        M = uint16(M); pippo = [path '/PlasmaPulite/plasma' sprintf('%03i', i) '.tif'];
+        M = uint16(M); pippo = [imOut '/PlasmaPulite/plasma' sprintf('%03i', i) '.tif'];
         imwrite(M, pippo);
  
     end
@@ -116,7 +116,8 @@ l_pixel = 90/838.0;
 
 path_rum = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/CAMimages/dark2x2';
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/CAMimages/cut_plasma';
-pulizia_calibrazione(path,'plasma', 20, path_rum, 'plasma', 80, 419, 260);
+imOut = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Analisi/Calibrazione';
+pulizia_calibrazione(path,imOut,'plasma', 20, path_rum, 'plasma', 80, 419, 260);
 int_calib = intensita_immagine(path, 'PlasmaPulite/plasma', 20);
 
 
