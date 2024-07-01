@@ -43,7 +43,7 @@ function grafico_T(t, v, v_fit)
     figure;
     plot(t, v, 'g-'); hold on; grid on;
     plot(t, v_fit, 'r-', 'LineWidth', 2); hold on; grid on;
-    legend('Discharge', 'Fit'); xlabel('Tempo (s)'); ylabel('log(Q_e/Q_t)'); title('Stima temperatura')
+    legend('Discharge', 'Fit'); xlabel('Energia(eV)'); ylabel('log(Q_e/Q_t)'); title('Stima temperatura')
 end
 
 
@@ -51,7 +51,7 @@ end
 % Funzione per l'effettivo calcolo della temperatura parallela di plasma.
 % Consente di effettuare il fit specificando limite minimo e limite massimo
 % della carica uscita in modo tale da selezionare la regione desiderata.
-function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qtot, udmt, udmv, udmv_noise)
+function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qtot, udmt, udmv)
 
     % Determino se i limiti dell'intervallo su cui vogliamo fare il fit
     % lineare siano ammessi oppure no
@@ -59,8 +59,8 @@ function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qt
         error('Il valore %d è al di fuori dell''intervallo [0.1, 1]. Interruzione della funzione.', qmin);
     end
 
-    if (qmax < 3) | (qmax > 10)
-        error('Il valore %d è al di fuori dell''intervallo [3, 10]. Interruzione della funzione.', qmax);
+    if (qmax < 1) | (qmax > 10)
+        error('Il valore %d è al di fuori dell''intervallo [1, 10]. Interruzione della funzione.', qmax);
     end
 
     % Contenitori per salvataggio in memoria delle stime di temperatura e
@@ -70,7 +70,7 @@ function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qt
     fprintf(new_data, '%s \n', 'Numero segnale     Temperatura valutata');
 
     % Valuto quale sia il rumore da sottrarre ai segnali di scarica zoomati
-    v_noise = signalNoise(path_rum, name, n, udmv_noise);
+    v_noise = signalNoise(path_rum, name, n, udmv);
    
     % Dato che ho 20 segnali di scarica zoomati, siamo interessati  
     for i=1:n
@@ -130,9 +130,8 @@ function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qt
 end
     
 
-n = 20; udmt = 1e-6; udmv = 1e-3;
-udmv_noise = 1e-3; name = 'segnale';
-path_rum = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/Signals/rumore_zoom/no_off';
+n = 20; udmt = 1e-6; udmv = 1e-3; name = 'segnale';
+path_rum = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/Signals/rumore_zoom_bump/no_off';
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/Signals/scarica_ramp_zoom/no_off';
 path_out = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Analisi/StudioTemperatura/Risultati/Temperatura/temp_';
 
@@ -145,4 +144,6 @@ qtot = str2num(answer{2});
 qmin = str2num(answer{3});
 qmax = str2num(answer{4});
 
-stima_temp = tempPlasma(path, path_rum, path_out, name, n, cap, qmin, qmax, qtot, udmt, udmv, udmv_noise);
+stima_temp = tempPlasma(path, path_rum, path_out, name, n, cap, qmin, qmax, qtot, udmt, udmv);
+disp(' ')
+disp(['La temperatura media è pari a: ' num2str(mean(stima_temp), 4) ' +/- ' num2str(std(stima_temp), 4)])

@@ -9,7 +9,7 @@ t = filescan {1,1}; v = filescan {1,2};
 
 figure;
 plot(t, smooth(v, 100), 'k-'); hold on; grid on;
-title('rumore-zoom-bump')
+title('Rumore zoom bump'); xlabel('Tempo (us)'); ylabel('Potenziale (mV)')
 
 
 
@@ -20,7 +20,7 @@ t = filescan {1,1}; v = filescan {1,2};
 
 figure;
 plot(t, smooth(v, 100), 'k-'); hold on; grid on;
-title('scarica-ramp-zoom')
+title('Scarica ramp zoom'); xlabel('Tempo (us)'); ylabel('Potenziale (mV)')
 
 
 
@@ -31,7 +31,7 @@ t = filescan {1,1}; v = filescan {1,2};
 
 figure;
 plot(t, smooth(v, 100), 'k-'); hold on; grid on;
-title('rumore-zoom')
+title('Rumore zoom'); xlabel('Tempo (us)'); ylabel('Potenziale (mV)')
 
 
 
@@ -42,4 +42,4 @@ t = filescan {1,1}; v = filescan {1,2};
 
 figure;
 plot(t, smooth(v, 100), 'k-'); hold on; grid on;
-title('scarica-ramp-totale')
+title('Scarica ramp totale'); xlabel('Tempo (us)'); ylabel('Potenziale (V)')
