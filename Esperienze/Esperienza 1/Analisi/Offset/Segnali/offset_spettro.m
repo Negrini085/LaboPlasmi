@@ -14,7 +14,7 @@ guad = [53.95, 53.1, 29.65, 28.15];
 % File di output
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Analisi/Offset/Segnali/Serie/serie';
 new_data = fopen('/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Analisi/Offset/Segnali/offset.txt','w');
-fprintf(new_data, '%s \n','#_serie    Offset');
+fprintf(new_data, '%s \n','#_serie    Offset    Errore');
 
 % Lavoro sulle ampiezze dei modi precedentemente determinate
 for i=1:9
@@ -31,7 +31,7 @@ for i=1:9
         offset(j) = sqrt(g1/g3) * (a3(j)/a1(j));
     end
     % Printo dati a file
-    fprintf(new_data,  '%s \n', [ num2str(i) '    ' num2str(mean(offset))]);
+    fprintf(new_data,  '%s \n', [ num2str(i) '    ' num2str(mean(offset)) '     ' num2str(std(offset))]);
 end
 fclose(new_data);  
 

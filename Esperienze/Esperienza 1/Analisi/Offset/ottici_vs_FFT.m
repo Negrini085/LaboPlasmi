@@ -15,14 +15,12 @@ path2 = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Anal
 % Leggo Ottici
 data1 = fopen(path1, 'rt');
 N = 1; filescan = textscan(data1,'%f %f ','HeaderLines',N);
-a = filescan {1,1}; off_ottici = filescan {1,2}; 
-fclose(data1);
+off_ottici = filescan {1,2}; fclose(data1);
 
 % Leggo Segnali
 data2 = fopen(path2, 'rt');
-N = 1; filescan = textscan(data1,'%f %f ','HeaderLines',N);
-b = filescan {1,1}; off_FFT = filescan {1,2}; 
-fclose(data2);
+N = 1; filescan = textscan(data1,'%f %f %f','HeaderLines',N);
+off_FFT = filescan {1,2}; fclose(data2);
 
 
 figure (1);

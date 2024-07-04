@@ -50,13 +50,13 @@ function offset_FFT(path, name, sign, limsup, liminf, udmv, udmt)
         vfour = v(t<limsup & t>liminf);
         t = t * udmt; vfour = vfour * udmv;
         dt = (t(143)-t(142));
-        fftPow = offset_SpectrumAnalysis(vfour);
+        amp = abs(fft(vfour));
 
         %--------------------------------------------%
         %        Trovo i picchi dello spettro        %
         %--------------------------------------------%
         frequenze = 0:1/(2*ceil(length(vfour)/2)*dt):1/(2*dt); 
-        amp = sqrt(fftPow(1:length(frequenze)));
+        amp = amp(1:length(frequenze));
         [A1, ind1] = max(amp);
         [A3, ind3] = max(amp(int32(44 * ind1/15) : int32(46 * ind1/15)));
 
@@ -74,9 +74,9 @@ end
 %sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 %sign = [1, 2, 3, 6, 7, 8, 9, 10, 11];
 %sign = [1, 2, 3, 4, 6, 7, 8, 10];
-sign = [1, 2, 4, 5, 6, 7, 8, 9, 10];
+%sign = [1, 2, 4, 5, 6, 7, 8, 9, 10];
 %sign = [1, 3, 4, 5, 6, 8, 9, 10];
-%sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
 path = input('Path to working directory: \n');

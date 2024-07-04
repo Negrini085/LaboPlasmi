@@ -73,7 +73,7 @@ end
 Navg = 100; nome = 'idischarge_';
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/calibration/idischarge';
 car_ioni = carica_segnale(path, nome, 20, 1e6, 0.001, 0.001, Navg, 0);
-disp(['La carica media della popolazione ionica è pari a: (' num2str(mean(car_ioni), 4) ' +/- ' num2str(std(car_ioni), 4) ') C'])
+disp(['La carica media della popolazione ionica è pari a: (' num2str(mean(car_ioni), 6) ' +/- ' num2str(std(car_ioni), 4) ') C'])
 
 
 
@@ -88,7 +88,7 @@ disp(['La carica media della popolazione ionica è pari a: (' num2str(mean(car_i
 Navg = 100; nome = 'edischarge_';
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/calibration/edischarge';
 car_ele = carica_segnale(path, nome, 26, 1e6, 0.001, 1, 100, 1);
-disp(['La carica media della popolazione elettronica è pari a: - (' num2str(mean(car_ele) + mean(car_ioni), 4) ' +/-' num2str(std(car_ele), 4) ') C'])
+disp(['La carica media della popolazione elettronica è pari a: - (' num2str(mean(car_ele) + mean(car_ioni), 6) ' +/-' num2str(std(car_ele + mean(car_ioni)), 4) ') C'])
 
 
 % Funzione per il calcolo dell'intensità totale delle immagini: ciò che
@@ -110,5 +110,5 @@ n = 32;
 
 inte = intensita_immagine(path, name, n);
 fact = (mean(car_ele) + mean(car_ioni))/mean(inte);
-disp(["L'intensità media delle immagini di plasma pulite è pari a: " num2str(mean(inte))])
+disp(['Intensità media delle immagini di plasma pulite è pari a: ' num2str(mean(inte)) '+/-' num2str(std(inte), 4)])
 disp(['Il fattore di conversione è pari a: ' num2str(fact)])

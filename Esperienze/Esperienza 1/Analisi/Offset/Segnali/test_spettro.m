@@ -36,12 +36,10 @@ function freqMax = testIntervalFFT(t, segnale)
     fprintf('Frequenza di risoluzione: %e\n', 1/(length(t)*dt))
     fprintf('\n')
 
-    % Computing test spectrum analysis
-    power = offset_SpectrumAnalysis(segnale);
-    
     % Computing valuable variables to study spectrum behaviour
     frequenze = 0:1/(length(t)*dt):1/(2*dt);
-    ampiezze = sqrt(power(1:length(frequenze)));
+    fourSign = abs(fft(segnale));
+    ampiezze = fourSign(1:length(frequenze));
 
     [maxSign, ind] = max(ampiezze);
     [max3, ind3] = max(ampiezze(int32(44 * ind/15) : int32(46 * ind/15)));
@@ -53,11 +51,10 @@ function freqMax = testIntervalFFT(t, segnale)
 
     % Secondo subplot --> grafico in scala log-log la FFT Analysis
     subplot(2, 1, 2);
-    semilogx(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
+    loglog(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
     title('Analisi FFT'); xlabel('Frequenze (Hz)'); ylabel('Ampiezza');
 
     freqMax = frequenze(ind);
-    disp(frequenze(int32(44 *ind/15 + ind3)))
 end
 
 
