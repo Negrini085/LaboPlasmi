@@ -211,7 +211,7 @@ v(12)=str2num(answer{12});
 % Altri parametri necessari per la determinazione della lunghezza di plasma
 % (nr, offset, rw, kfactor, Lp)
 prompt1={'rw','nr','Lp','kfactor', 'N_it', 'n_img'};
-default1={'0.045','419','0.81','-4.263e-17', '10', '0'};
+default1={'0.045','419','0.81','-3.9922e-17', '3', '0'};
 dlgtitle1 = 'Electrode voltages';
 answer1=inputdlg(prompt1,dlgtitle1,[1 50],default1);
 
@@ -222,11 +222,24 @@ k_factor = str2num(answer1{4});
 N_it = str2num(answer1{5});
 
 % Path per lettura immagini
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Analisi/PlasmaPulite/plasma_pulita10.tif';
-path_out = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Analisi/Frequenze/LunghezzaPlasma/Lp_serie1.txt';
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series3_250ms/plasma';
+path_out = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Analisi/Frequenze/LunghezzaPlasma/Lp_serie3.txt';
 
-for k in sign:
-    im_plasma = double(imread([path num2str(k) '.tif')); [rowm, colm] = size(im_plasma);
+%sign = [2, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 37, 39, 40, 41, 43, 45, 46, 47, 49];
+%sign = [2, 3, 4, 6, 8, 9, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 47, 48, 49, 50];
+sign = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 42, 43, 45, 46, 47, 48, 49, 50, 51, 52, 53, 56, 57, 58, 59, 60, 61, 62];
+%sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+%sign = [1, 2, 3, 6, 7, 8, 9, 10, 11];
+%sign = [1, 2, 3, 4, 6, 7, 8, 10];
+%sign = [1, 2, 4, 5, 6, 7, 8, 9, 10];
+%sign = [1, 3, 4, 5, 6, 8, 9, 10];
+%sign = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+new_data = fopen(path_out,'w');
+fprintf(new_data, '%s \n', 'Numero segnale      Lunghezza di plasma');
+
+for k=sign
+    im_plasma = double(imread([path sprintf('%03i', k) '.tif'])); [rowm, colm] = size(im_plasma);
 
     % Variabili necessarie per il corretto calcolo della densità del plasma
     % presente nella trappola
@@ -236,7 +249,7 @@ for k in sign:
     
     % Determino l'offset iniziale
     xm = X.*im_plasma; ym = Y.*im_plasma; 
-    col = sum(sum(xm))/sum(sum(M)); row = sum(sum(ym))/sum(sum(M));
+    col = sum(sum(xm))/sum(sum(im_plasma)); row = sum(sum(ym))/sum(sum(im_plasma));
     off_pl = sqrt((row)^2 + (col)^2) * l_pixel;
 
     for i=1:N_it
@@ -255,7 +268,6 @@ for k in sign:
         inte = pot_ELTRAP(v, off_pl, min_pot);
         Lp = inte(3) - inte(2);
     end
-
+    disp(' ')
+    fprintf(new_data, '%s \n', [num2str(k) '     '   num2str(Lp)]);
 end
-
-disp(["La lunghezza del plasma è pari a " num2str(Lp)])
