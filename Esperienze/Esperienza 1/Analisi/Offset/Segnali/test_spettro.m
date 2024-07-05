@@ -45,14 +45,14 @@ function freqMax = testIntervalFFT(t, segnale)
     [max3, ind3] = max(ampiezze(int32(44 * ind/15) : int32(46 * ind/15)));
 
     % Primo subplot --> grafico il segnale considerato
-    figure; subplot(2, 1, 1);
+    figure; %subplot(2, 1, 1);
     plot(t, segnale, 'r-', 'LineWidth',2); hold on; grid on;
-    title('Evoluzione libera: 300 ms'); xlabel('Tempo [ms]'); ylabel('Ampiezza [V]');
+    title('Evoluzione libera: 300 ms'); xlabel('Tempo [s]'); ylabel('Ampiezza [V]'); daspect([1 15 1]);
 
     % Secondo subplot --> grafico in scala log-log la FFT Analysis
-    subplot(2, 1, 2);
-    loglog(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
-    title('Analisi DFT'); xlabel('Frequenze (Hz)'); ylabel('Ampiezza');
+    %subplot(2, 1, 2);
+    %loglog(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
+    %title('Analisi DFT'); xlabel('Frequenze (Hz)'); ylabel('Ampiezza');
 
     freqMax = frequenze(ind);
 end
@@ -79,10 +79,10 @@ path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/
 %vfour = sin(2*pi*w1*tfour) + 0.5*sin(2*pi*w2*tfour) + 0.3*sin(2*pi*w3*tfour);
 data = fopen(path, 'rt'); N = 3; 
 filescan = textscan(data,'%f %f','HeaderLines',N);
-t = filescan {1,1}; v = filescan {1,2};
+t = filescan {1,1}; v = filescan {1,2}; 
 
 % Testo il segnale preso in considerazione
-tmin = 269.9; tmax = 299.9;
+tmin = 0; tmax = 350;
 tfour = t((t>tmin) & (t<tmax));
 vfour = v((t>tmin) & (t<tmax));
 tfour = tfour * udmt; vfour = vfour * udmv;
