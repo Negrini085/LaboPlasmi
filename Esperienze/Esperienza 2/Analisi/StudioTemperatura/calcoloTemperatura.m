@@ -43,7 +43,15 @@ function grafico_T(t, v, v_fit)
     figure;
     plot(t, v, 'g-'); hold on; grid on;
     plot(t, v_fit, 'r-', 'LineWidth', 2); hold on; grid on;
-    legend('Discharge', 'Fit'); xlabel('Energia(eV)'); ylabel('log(Q_e/Q_t)'); title('Stima temperatura')
+    legend('Discharge', 'Fit'); xlabel('Potenziale (V)'); ylabel('log(Q_e/Q_t)'); title('Stima temperatura')
+end
+
+
+% Funzione per stampare a video il grafico del fit
+function grafico_Cum(v_conf, cum, qtot)
+    figure;
+    plot(v_conf, log(cum/qtot), 'r-'); hold on; grid on;
+    xlabel('Potenziale (V)'); ylabel('log(Q_e/Q_t)'); title('Cumulativa')
 end
 
 
@@ -112,17 +120,19 @@ function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qt
         % Devo determinare l'ascissa del fit lineare: tale quantità è
         % l'energia "di uscita" delle particelle.
         cAng = 0.5/2e-6;
-        en = 100 - cAng * (t_fit + 5e-5);
+        en = -100 + cAng * (t_fit - t(1));
 
 
         % Effettuo il fit e determino la stima della temperatura partendo
         % dal coefficiente angolare ottenuto. Tale valore viene sia salvato
         % per essere stampato a video, che stampato in un file
         myfit = polyfit(en, log(ch_fit/qtot), 1); 
-        temp(i) = -1/myfit(1);
+        temp(i) = 1/myfit(1);
 
         if i == 3
-            grafico_T(en,log(ch_fit/qtot), polyval(myfit, en))
+            pot  = -100 + cAng * (t(1:ind) - t(1));
+            grafico_T(en,log(abs(ch_fit)/qtot), polyval(myfit, en))
+            grafico_Cum(pot,chCum(1:ind), qtot)
         end
 
         fprintf(new_data,  '%s \n', [num2str(i) '    ' num2str(temp(i))]);

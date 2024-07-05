@@ -27,7 +27,7 @@ figure (1);
 l_pixel = 90/838.0; 
 plot(t_ev', off_ottici * l_pixel, 'r.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on; grid on;
 plot(t_ev', off_FFT * 1000, 'b.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on; grid on;
-title('Offset: dipendenza da evoluzione libera'); 
+title('Offset: confronto'); 
 xlabel('Tempo (ms)'); ylabel('Offset (mm)');
 legend('Ottico', 'FFT')
 

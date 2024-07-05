@@ -26,9 +26,9 @@ end
 %------------------------------------------------------%
 %     Function to test FFT interval we want to use     %
 %------------------------------------------------------%
-function freqMax = testIntervalFFT(t, segnale)
+function freqMax = testIntervalFFT(t, v)
     % Calcolo il tempo di sampling
-    dt = (t(160)-t(150))/10;
+    dt = (t(160)-t(150))/10*1e-3;
 
     % Valuto le frequenze caratteristiche di campionamento
     fprintf('PUNTO 1:\n')
@@ -36,24 +36,44 @@ function freqMax = testIntervalFFT(t, segnale)
     fprintf('Frequenza di risoluzione: %e\n', 1/(length(t)*dt))
     fprintf('\n')
 
+    % Testo il segnale preso in considerazione
+    udmv = 1; udmt = 0.001;
+    tmin = 269.9; tmax = 299.9;
+    tfour = t((t>tmin) & (t<tmax));
+    vfour = v((t>tmin) & (t<tmax));
+    tfour = tfour * udmt; vfour = vfour * udmv;
+
     % Computing valuable variables to study spectrum behaviour
-    frequenze = 0:1/(length(t)*dt):1/(2*dt);
-    fourSign = sqrt(offset_SpectrumAnalysis(segnale));
+    frequenze = 0:1/(length(tfour)*dt):1/(2*dt);
+    fourSign = sqrt(offset_SpectrumAnalysis(vfour));
     ampiezze = fourSign(1:length(frequenze));
 
     [maxSign, ind] = max(ampiezze);
     [max3, ind3] = max(ampiezze(int32(44 * ind/15) : int32(46 * ind/15)));
 
     % Primo subplot --> grafico il segnale considerato
-    figure; subplot(2, 1, 1);
-    plot(t, segnale, 'r-', 'LineWidth',2); hold on; grid on;
-    title('Evoluzione libera: 300 ms'); xlabel('Tempo [ms]'); ylabel('Ampiezza [V]');
+    figure;
+    loglog(frequenze((16500 < frequenze) & (frequenze < 18500)), ampiezze((16500 < frequenze) & (frequenze < 18500)), 'r-', 'LineWidth',2); hold on; grid on;
+    title('Evoluzione libera: 300 ms'); xlabel('Frequenza (Hz)');
 
-    % Secondo subplot --> grafico in scala log-log la FFT Analysis
-    subplot(2, 1, 2);
-    loglog(frequenze, ampiezze, 'b-', 'LineWidth', 2); hold on; grid on;
-    title('Analisi DFT'); xlabel('Frequenze (Hz)'); ylabel('Ampiezza');
+    % Testo il segnale preso in considerazione
+    tmin = 149.9; tmax = 299.9;
+    tfour = t((t>tmin) & (t<tmax));
+    vfour = v((t>tmin) & (t<tmax));
+    tfour = tfour * udmt; vfour = vfour * udmv;
 
+    % Computing valuable variables to study spectrum behaviour
+    frequenze = 0:1/(length(tfour)*dt):1/(2*dt);
+    fourSign = sqrt(offset_SpectrumAnalysis(vfour));
+    ampiezze = fourSign(1:length(frequenze));
+
+    [maxSign, ind] = max(ampiezze);
+    [max3, ind3] = max(ampiezze(int32(44 * ind/15) : int32(46 * ind/15)));
+
+    % Secondo subplot --> grafico il segnale considerato
+    figure;
+    loglog(frequenze((16500 < frequenze) & (frequenze < 18500)), ampiezze((16500 < frequenze) & (frequenze < 18500)), 'r-', 'LineWidth',2); hold on; grid on;
+    title('Evoluzione libera: 300 ms'); xlabel('Frequenza [Hz]');
     freqMax = frequenze(ind);
 end
 
@@ -71,8 +91,8 @@ end
 %           ---> 300ms      min: 269.9 ms   max: 299.9 ms
 
 % Parametri per lettura del segnale
-udmv = 1; udmt = 0.001;
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/series2_300ms/segnale06.txt';
+
+path = ['/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/Signals/series2_300ms/segnale12.txt'];
 
 % Apertura del canale di comunicazione con il file in questione
 %tfour = 0:1e-6:1; w1 = 8e3; w2 = 12e3; w3 = 20e3;
@@ -81,14 +101,8 @@ data = fopen(path, 'rt'); N = 3;
 filescan = textscan(data,'%f %f','HeaderLines',N);
 t = filescan {1,1}; v = filescan {1,2};
 
-% Testo il segnale preso in considerazione
-tmin = 269.9; tmax = 299.9;
-tfour = t((t>tmin) & (t<tmax));
-vfour = v((t>tmin) & (t<tmax));
-tfour = tfour * udmt; vfour = vfour * udmv;
 
-
-fMax = testIntervalFFT(tfour, vfour);
+fMax = testIntervalFFT(t, v);
 disp(["La frequenza di picco dell'analisi in FFT è pari a:" num2str(fMax)])
 
 
