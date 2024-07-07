@@ -179,7 +179,7 @@ title('Soluzione problema Laplace'); daspect([1 1 1]); colorbar; objrho = colorb
 
 % Carico immagine da cui andrò a determinare l'andamento del potenziale
 % all'interno della trappola
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Analisi/PlasmaPulite/plasma_pulita10.tif';
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series2_300ms/plasma010.tif';
 nr = 419; nth = floor(0.785 * nr); l_pixel = 45e-3/nr;
 k_factor = -4.263e-17; Lp = 0.81; rw = 45e-3;
 
@@ -204,9 +204,11 @@ figure(3);
 pla_polare(:, nr+1) = pla_polare(:, nr);
 pla_polare(nth+1, :) = pla_polare(1, :);
 colormap('jet'); surface(x, y, pla_polare,'FaceAlpha',1,'LineStyle','none','FaceColor','flat'); hold on;
-title('Densità superficiale: esperienza 1'); daspect([1 1 1e-10]); colorbar; objrho = colorbar;
+title('Densità di carica','FontSize', 20); daspect([1 1 1e-10]);
+cb = colorbar(); ylabel(cb,'C/m^3','FontSize',15,'Rotation',270);
 
 figure(4);
 potenziale(nth+1, :) = potenziale(1,:);
 colormap('jet'); surface(x, y, potenziale,'FaceAlpha',1,'LineStyle','none','FaceColor','flat'); hold on;
-title('Potenziale di plasma: esperienza 1'); daspect([1 1 40]); colorbar; objrho = colorbar;       
+title('Potenziale di plasma', 'FontSize', 20); daspect([1 1 40]);
+cb = colorbar(); ylabel(cb,'V','FontSize',15,'Rotation',270);

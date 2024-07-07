@@ -210,7 +210,7 @@ v(12)=str2num(answer{12});
 
 % Leggo l'immagine necessaria per la determinazione del valore del
 % potenziale di plasma
-path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 0/Analisi/PlasmaPulite/plasma_pulita10.tif';
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/plasma_pulite/plasma010.tif';
 im_plasma = double(imread(path)); 
 
 % Altri parametri necessari per la determinazione della lunghezza di plasma

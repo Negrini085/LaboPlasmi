@@ -40,9 +40,9 @@ sx_lim(1) = 0;
 myfit = polyfit(off_FFT * 1000, off_ottici * l_pixel, 1);
 fit_offset = regress(off_FFT * 1000, off_ottici * l_pixel);
 y_fit = fit_offset * off_ottici * l_pixel;
-errorbar(off_ottici * l_pixel, off_FFT * 1000,  sx_lim, errOpt * l_pixel, errFFT * 1000, errFFT * 1000, 'r.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on; grid on;
+errorbar(off_ottici * l_pixel, off_FFT * 1000,  errOpt * l_pixel, errOpt * l_pixel, errFFT * 1000, errFFT * 1000, 'r.', 'MarkerFaceColor','auto', 'MarkerSize',20); hold on; grid on;
 plot(off_ottici * l_pixel, y_fit, 'g-', 'LineWidth', 1.5); hold on; grid on;
 plot(linspace(0, 9, 100), linspace(0, 9, 100), 'b-', 'LineWidth', 1.5); hold on; grid on;
 title('Offset: Ottico vs FFT'); 
 xlabel('Analisi immagini (mm)'); ylabel('Analisi segnali (mm)');
-legend('Ottico vs FFT', 'Fit lineare', 'Bisettrice')
+legend('Ottico vs FFT', 'Fit lineare')

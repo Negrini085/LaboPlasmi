@@ -16,6 +16,7 @@ path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Anali
 data = fopen(path, 'rt');
 N = 1; filescan = textscan(data,'%f %f %f','HeaderLines',N);
 a = filescan {1,1}; omega1 = filescan {1,2}; omega3 = filescan {1,3};
+omega1
 fclose(data);
 
 
