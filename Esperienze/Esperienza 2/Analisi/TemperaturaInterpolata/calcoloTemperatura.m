@@ -96,7 +96,7 @@ function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qt
         % Lavoro sul vettore delle differenze di potenziale in modo tale
         % che ogni celletta contenga la carica associata ad un tale segnale
         % in corrente
-        res = 1e6; dt = (t(35123) - t(35112))/10; car = v * dt/res;
+        res = 1e6; dt = (t(35120) - t(35110))/10; car = v * dt/res;
 
         % Creo la carica cumulata, devo però tenere anche conto della
         % carica che è stata intrappolata nella capacità parassita presente
