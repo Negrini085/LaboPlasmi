@@ -50,7 +50,7 @@ end
 % Funzione per stampare a video il grafico del fit
 function grafico_Cum(v_conf, cum, qtot)
     figure;
-    plot(v_conf, log(cum/qtot), 'r-'); hold on; grid on;
+    plot(v_conf, log(abs(cum/qtot)), 'r-'); hold on; grid on;
     xlabel('Potenziale (V)'); ylabel('log(Q_e/Q_t)'); title('Cumulativa')
 end
 
@@ -120,7 +120,7 @@ function temp = tempPlasma(path, path_rum, pathOut, name, n, cap, qmin, qmax, qt
         % Devo determinare l'ascissa del fit lineare: tale quantità è
         % l'energia "di uscita" delle particelle.
         cAng = 0.5/2e-6;
-        en = -100 + cAng * (t_fit - t(1));
+        en = -100 + cAng * t_fit;
 
 
         % Effettuo il fit e determino la stima della temperatura partendo
@@ -143,7 +143,7 @@ end
 n = 20; udmt = 1e-6; udmv = 1e-3; name = 'segnale';
 path_rum = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/Signals/rumore_zoom_bump/no_off';
 path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Dati/Signals/scarica_ramp_zoom/no_off';
-path_out = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Analisi/StudioTemperatura/Risultati/Temperatura/temp_';
+path_out = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 2/Analisi/TemperaturaInterpolata/Risultati/Temperatura/temp_';
 
 prompt={'Capacity','Total charge','Lower bound','Upper bound'};
 default={'4.393e-10','5.564e-10','0.5','3.5'};
