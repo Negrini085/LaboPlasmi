@@ -13,8 +13,9 @@ fit_val = polyval(myfit, log(chR));
 
 
 figure;
+loglog(chR, exp(fit_val), 'r-', 'LineWidth', 2); hold on; grid on;
 loglog(chR, v, 'b.', 'MarkerSize', 20); hold on; grid on;
-loglog(chR, exp(fit_val), 'r-'); hold on; grid on;
-xlabel('log(cr)'); ylabel('log(V_{pp})');
+xlabel('log(A)'); ylabel('log(V_{pp})'); title('Ampiezza vs Chirp Rate')
+legend('Fit', 'Value', 'Location','southeast')
 
 disp(['Esponente della relazione: ' num2str(myfit(1), 4)])
