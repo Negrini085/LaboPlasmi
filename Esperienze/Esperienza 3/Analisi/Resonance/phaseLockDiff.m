@@ -86,7 +86,7 @@ title('Risultato XOR'); ylabel('Potenziale (mV)'); xlabel('Tempo (ms)');
 phDiff = zeros(1, length(vDrive)-1000);
 
 for i=1:length(phDiff)
-    phDiff(i) = phaseDiffXOR(vDrive(i:1000+i), vSett(i:1000+i));
+    phDiff(i) = phaseDiffXOR(vDrive(i:500+i), vSett(i:500+i));
 end
 
 figure('Renderer', 'painters', 'Position', [10 10 600 700]);
