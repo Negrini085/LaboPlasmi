@@ -37,8 +37,8 @@ clc
 %sign = [2, 3, 4, 10];
 %path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series8_225ms/plasma';
 
-%sign = [1, 2, 5, 8];
-%path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series9_275ms/plasma';
+sign = [1, 2, 5, 8];
+path = '/home/filippo/Desktop/CODICINI/LABO_PLASMI/Esperienze/Esperienza 1/Dati/CAMimages/series9_275ms/plasma';
 
 
 % Definisco ora la routine che mi consente di studiare quale sia l'offset
