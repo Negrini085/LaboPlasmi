@@ -2,7 +2,6 @@
 %                      ANALISI SUL SINGOLO SEGNALE                        %
 %-------------------------------------------------------------------------%
 
-close all
 clear all
 clc
 
@@ -82,3 +81,7 @@ xlabel('Tempo [ms]'); ylabel('Frequenza [Hz]');
 figure;
 plot(tGraph, offProgrssivi * 1000, 'r.', 'MarkerSize', 20); hold on; grid on;
 xlabel('Tempo [ms]'); ylabel('Offset [mm]');
+
+figure;
+plot(offProgrssivi * 1000, freqProgrssive, 'r.', 'MarkerSize', 20); hold on; grid on;
+xlabel('Offset [mm]'); ylabel('Frequenza [Hz]');

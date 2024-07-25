@@ -1,5 +1,5 @@
 %-------------------------------------------------------------------------%
-%      Dipendenza fra offset e frequenza del primo modo di diocotron      %
+%          Studio delle frequenze facendo un binning sull'offset          %
 %-------------------------------------------------------------------------%
 
 clear all
@@ -33,7 +33,14 @@ for i=1:9
     end
 end
 
+freqBin = zeros(1, 6); offBin = zeros(1, 6); error = zeros(1, 6);
+offMin = min(offSign); offMax = max(offSign); dOff = (offMax - offMin)/6;
+for i=1:6
+    offBin(i) = offMin+ (i-0.5) * dOff;
+    freqBin(i) = mean(freqSign(offSign > (offMin + (i-1)*dOff) & offSign < (offMin + i*dOff)));
+    error(i) = std(freqSign(offSign > (offMin + (i-1)*dOff) & offSign < (offMin + i*dOff)));
+end
+
 figure;
-plot(offSign * 1000, freqSign, 'r.', 'MarkerSize', 15, 'DisplayName', 'Valori'); hold on; grid on;
-xlabel('Offset [mm]', 'FontSize', 12); ylabel('Frequenze DFT (Hz)', 'FontSize', 12);
-legend('Location','southeast');
+errorbar(1000 * offBin, freqBin, error, 'r.', 'MarkerSize', 20); hold on; grid on;
+xlabel('Offset [mm]'); ylabel('Frequenza [Hz]');

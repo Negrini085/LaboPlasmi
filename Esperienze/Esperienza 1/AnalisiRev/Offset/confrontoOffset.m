@@ -2,7 +2,6 @@
 %            CONFRONTO fra offset ottenuti con due metodologie            %
 %-------------------------------------------------------------------------%
 
-close all
 clear all
 clc
 
