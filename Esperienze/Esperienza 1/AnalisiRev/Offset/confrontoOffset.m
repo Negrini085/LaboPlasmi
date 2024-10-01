@@ -36,9 +36,9 @@ myFit = polyfit(offIm, offSign, 1);
 
 
 figure;
-plot(offIm, offSign, 'r.', 'MarkerSize', 15, 'DisplayName', 'Valori'); hold on; grid on;
-plot(offIm, polyval(myFit, offIm), 'b-', 'LineWidth', 2, 'DisplayName', 'Fit'); hold on; grid on;
-xlabel('Offset ottici (mm)', 'FontSize', 12); ylabel('Offset DFT (mm)', 'FontSize', 12);
+plot(offIm/45, offSign/45, 'r.', 'MarkerSize', 15, 'DisplayName', 'Valori'); hold on; grid on;
+plot(offIm/45, polyval(myFit, offIm)/45, 'b-', 'LineWidth', 2, 'DisplayName', 'Fit'); hold on; grid on;
+xlabel('Offset ottici', 'FontSize', 14); ylabel('Offset DFT', 'FontSize', 14);
 legend('Location','southeast');
 
 disp(['Il coefficiente angolare della regressione lineare è: ' num2str(myFit(1))])

@@ -7,7 +7,7 @@ clear all
 clc
 
 % Parametri per calcolo lineare
-B = 390/300 * 0.1; Rw = 45e-3; eps0 = 8.85e-12; Qp = 1.262e-9; Lp = 0.7670; Rp = 200 * Rw/419; T = 3.5;
+B = 390/300 * 0.1; Rw = 45e-3; eps0 = 8.85e-12; Qp = 1.262e-9; Lp = 0.7680; Rp = 200 * Rw/419; T = 3.5;
 
 % FREQUENZA LINEARE
 nu_lin = Qp/(Lp * (2*pi)^2 * eps0 * B * (Rw)^2);

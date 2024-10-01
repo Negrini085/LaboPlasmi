@@ -43,4 +43,7 @@ end
 
 figure;
 errorbar(1000 * offBin, freqBin, error, 'r.', 'MarkerSize', 20); hold on; grid on;
-xlabel('Offset [mm]'); ylabel('Frequenza [Hz]');
+xlabel('Offset [mm]', 'FontSize', 15); ylabel('Frequenza [Hz]', 'FontSize', 15);
+
+freqBin
+1000 * offBin

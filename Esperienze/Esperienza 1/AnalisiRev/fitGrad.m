@@ -23,7 +23,7 @@ end
 figure;
 plot(linspace(-colm/2 - col, colm/2 - col, colm), M(int32(row + rowm/2 - 10), :), 'r.', 'MarkerSize', 5, 'DisplayName', 'Dati Colonna'); hold on; grid on;
 plot(linspace(-rowm/2 - row + 10, rowm/2 + 10 - row, rowm), M(:, int32(col + colm/2))', 'g.', 'MarkerSize', 5, 'DisplayName', 'Dati Riga'); hold on; grid on;
-plot(linspace(-365, 365, 730), profDens, 'b-', 'LineWidth', 2, 'DisplayName', 'Profile'); hold on; grid on;
+plot(linspace(-365, 365, 730), profDens, 'b-', 'LineWidth', 2, 'DisplayName', 'Profile'); hold on; grid on; xlim([0, 300]);
 
 xlabel('Posizione'); ylabel('Intensità'); legend('show');
 
@@ -48,6 +48,6 @@ end
 figure;
 plot(linspace(-colm/2 - col, colm/2 - col, colm), M(int32(row + rowm/2 - 10), :), 'r.', 'MarkerSize', 5, 'DisplayName', 'Dati Colonna'); hold on; grid on;
 plot(linspace(-rowm/2 - row + 10, rowm/2 + 10 - row, rowm), M(:, int32(col + colm/2))', 'g.', 'MarkerSize', 5, 'DisplayName', 'Dati Riga'); hold on; grid on;
-plot(linspace(-365, 365, 730), profDens, 'b-', 'LineWidth', 2, 'DisplayName', 'Profile'); hold on; grid on;
+plot(linspace(-365, 365, 730), profDens, 'b-', 'LineWidth', 2, 'DisplayName', 'Profile'); hold on; grid on; xlim([0, 300]);
 
 xlabel('Posizione'); ylabel('Intensità'); legend('show');

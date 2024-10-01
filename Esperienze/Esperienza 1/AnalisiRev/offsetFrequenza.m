@@ -35,5 +35,5 @@ end
 
 figure;
 plot(offSign * 1000, freqSign, 'r.', 'MarkerSize', 15, 'DisplayName', 'Valori'); hold on; grid on;
-xlabel('Offset [mm]', 'FontSize', 12); ylabel('Frequenze DFT (Hz)', 'FontSize', 12);
+xlabel('Offset [mm]', 'FontSize', 15); ylabel('Frequenze DFT (Hz)', 'FontSize', 15);
 legend('Location','southeast');

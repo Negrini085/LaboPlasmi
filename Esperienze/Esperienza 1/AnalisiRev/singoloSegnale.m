@@ -76,12 +76,12 @@ end
 
 figure;
 plot(tGraph, freqProgrssive, 'r.', 'MarkerSize', 20); hold on; grid on;
-xlabel('Tempo [ms]'); ylabel('Frequenza [Hz]');
+xlabel('Tempo [ms]', 'FontSize', 14); ylabel('Frequenza [Hz]', 'FontSize', 14);
 
 figure;
 plot(tGraph, offProgrssivi * 1000, 'r.', 'MarkerSize', 20); hold on; grid on;
-xlabel('Tempo [ms]'); ylabel('Offset [mm]');
+xlabel('Tempo [ms]', 'FontSize', 14); ylabel('Offset [mm]', 'FontSize', 14);
 
 figure;
 plot(offProgrssivi * 1000, freqProgrssive, 'r.', 'MarkerSize', 20); hold on; grid on;
-xlabel('Offset [mm]'); ylabel('Frequenza [Hz]');
+xlabel('Offset [mm]', 'FontSize', 14); ylabel('Frequenza [Hz]', 'FontSize', 14);
